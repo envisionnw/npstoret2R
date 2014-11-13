@@ -64,7 +64,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

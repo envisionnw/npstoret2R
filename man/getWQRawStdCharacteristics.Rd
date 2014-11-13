@@ -5,9 +5,6 @@
 \usage{
 getWQRawStdCharacteristics()
 }
-\arguments{
-\item{none}{}
-}
 \description{
 Fetch ALL NPSTORET WQ Standard Characteristics for Dependent (Calculated) &
              Independent (Uncalculated) Standards
@@ -18,10 +15,9 @@ Standards are 'raw' pulled directly from NPSTORET - NO CALCULATED VALUES!
 }
 \section{Requirements}{
 
-\tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
+R libraries:
+\itemize{
+   \item RODBC
   }
 }
 
@@ -39,6 +35,7 @@ Standards are 'raw' pulled directly from NPSTORET - NO CALCULATED VALUES!
   \tab 0.2   \tab\tab 2014-06-24 \tab\tab   BLC  \tab\tab Added StnID column & converted to non-scientific notation \cr
   \tab 0.3   \tab\tab 2014-09-08 \tab\tab   BLC  \tab\tab Drop unused levels \cr
   \tab 0.4   \tab\tab 2014-10-05 \tab\tab   BLC  \tab\tab Add check to ensure dfRAWStds is a data.frame \cr
+  \tab 0.5   \tab\tab 2014-11-11 \tab\tab   BLC  \tab\tab Documentation update \cr
   }
 }
 \seealso{
@@ -55,7 +52,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdDepCharDisplayName}};
   \code{\link{getStdFormula}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

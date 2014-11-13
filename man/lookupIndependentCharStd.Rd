@@ -28,12 +28,7 @@ Lookup independent characteristic std value
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   stringr library package loaded \cr
-}
+none
 }
 
 \section{Sources}{
@@ -57,6 +52,7 @@ Lookup independent characteristic std value
 \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
   \tab 0.2   \tab\tab 2014-07-08    \tab\tab BLC   \tab\tab Removed with & identified dfIndepChars for df variables \cr
+  \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{
@@ -74,7 +70,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}}
 }
 

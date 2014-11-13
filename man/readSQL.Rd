@@ -8,6 +8,9 @@ readSQL(path)
 \arguments{
 \item{path}{= SQL file location}
 }
+\value{
+sql - Returns the SQL string from the SQL file.
+}
 \description{
 Read SQL queries from separate SQL file
 }
@@ -37,6 +40,7 @@ Long SQL queries become unreadable from R so it's best to keep
 
   \tabular{llllllll}{
   \tab 0.1 \tab \tab 2014-05-05 \tab \tab BLC  \tab \tab Initial version \cr
+  \tab 0.2 \tab \tab 2014-11-10 \tab \tab BLC  \tab \tab Updated documentation \cr
   }
 }
 \seealso{

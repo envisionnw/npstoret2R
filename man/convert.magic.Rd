@@ -6,13 +6,20 @@
 convert.magic(obj, type, cols)
 }
 \arguments{
-\item{none}{}
+\item{obj}{- Data frame}
+
+\item{type}{- String ("character", "numeric", "factor", "nonsci") of desired column type to convert to}
+
+\item{cols}{- Column to change}
+}
+\value{
+Data frame with column(s) changed to the desired type
 }
 \description{
 Change data frame column types
 }
 \note{
-Used to change from scientific notation to standard for dataframes
+Used in npstoret2R to change from scientific notation to standard for dataframes
 }
 \section{Sources}{
 
@@ -40,6 +47,7 @@ Used to change from scientific notation to standard for dataframes
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-05-30 \tab \tab BLC   \tab\tab Initial version \cr
   \tab 0.2   \tab\tab 2014-06-26  \tab\tab BLC  \tab \tab Added cleanup \cr
+  \tab 0.3   \tab\tab 2014-11-10  \tab\tab BLC  \tab \tab Updated documentation \cr
   }
 }
 \seealso{

@@ -10,9 +10,9 @@ dfDatesBetween(df, col = "", firstDate, secondDate)
 
 \item{col}{- name of the column as a string}
 
-\item{date1}{- first date in YYYY-mm-dd format}
+\item{firstDate}{- first date in YYYY-mm-dd format}
 
-\item{date2}{- second date in YYYY-mm-dd format}
+\item{secondDate}{- second date in YYYY-mm-dd format}
 }
 \value{
 df - dataframe with column dates between the 2 dates or -1 if df isn't a dataframe
@@ -39,6 +39,7 @@ Returns subset of a dataframe with values between dates for a specific column
 
   \tabular{llllllll}{
   \tab 0.1   \tab \tab 2014-06-26 \tab \tab BLC  \tab \tab Initial version \cr
+  \tab 0.2   \tab \tab 2014-11-10 \tab \tab BLC  \tab \tab Update documentation \cr
   }
 }
 \seealso{

@@ -5,20 +5,15 @@
 \usage{
 getRAWDepWQStdChars()
 }
-\arguments{
-\item{none}{}
-}
 \description{
 fetch ALL NPSTORET WQ Standard Characteristics for Dependent (Uncalculated) Standards
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   sqldf library package loaded \cr
-}
+ R libraries:
+  \itemize{
+   \item RODBC
+  }
 }
 
 \section{Sources}{
@@ -39,6 +34,7 @@ fetch ALL NPSTORET WQ Standard Characteristics for Dependent (Uncalculated) Stan
   \tab 0.5   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Added stringsAsFactors = FALSE to prevent
                             factorization of df strings & subsequent
                             limitation of df values, fix spaces & reordering df \cr
+  \tab 0.6   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update, add check for dfRAWStds & remove sqldf depedency \cr
  }
 }
 \seealso{
@@ -55,7 +51,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

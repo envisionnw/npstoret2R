@@ -18,12 +18,7 @@ Fetch the formula for calculating dependent characteristic standards
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   sqldf library package loaded \cr
-}
+ none
 }
 
 \section{Sources}{
@@ -42,6 +37,7 @@ Fetch the formula for calculating dependent characteristic standards
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-06-30    \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{
@@ -58,7 +54,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdDepCharDisplayName}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

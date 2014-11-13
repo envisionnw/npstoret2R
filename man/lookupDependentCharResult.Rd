@@ -5,32 +5,15 @@
 \usage{
 lookupDependentCharResult(depChar, stationID, startDate, startTimeZone, uom,
   medium, field_lab)
-
-lookupDependentCharResult(depChar, stationID, startDate, startTimeZone, uom,
-  medium, field_lab)
 }
 \arguments{
-\item{depChar}{- NPSTORET dependent characteristic value (pH, Temp, Hardness)}
-
-\item{stationID}{- NPSTORET StationID}
-
-\item{startDate}{- NPSTORET visit StartDate}
-
-\item{uom}{- NPSTORET unit of measure (UOM)#'}
-
-\item{medium}{- NPSTORET measurement medium (MEDIUM)}
-
-\item{field_lab}{- NPSTORET field or lab mesurement (FIELD_LAB)}
-
-\item{park}{- NPSTORET Park}
-
-\item{smpl_frac}{- NPSTORET sample fraction type name}
-
 \item{depChar}{- NPSTORET dependent characteristic value (CharDependent)}
 
 \item{stationID}{- NPSTORET StationID}
 
 \item{startDate}{- NPSTORET visit StartDate}
+
+\item{startTimeZone}{- NPSTORET visit StartTimeZone}
 
 \item{uom}{- NPSTORET unit of measure (UOM)}
 
@@ -40,61 +23,13 @@ lookupDependentCharResult(depChar, stationID, startDate, startTimeZone, uom,
 }
 \value{
 resultVal - results value for the matched characteristic
-
-resultVal - results value for the matched characteristic
 }
 \description{
 Lookup dependent characteristic result value (pH, H20 temp, hardness)
-
-Lookup dependent characteristic result value (pH, H20 temp, hardness)
 }
 \section{Requirements}{
 
-  \itemize{
-  \item \link[RODBC]{RODBC} library package loaded
-  \item Working directory set for app
-  \item LoadNPSTORET function
-  \item \[stringr]{stringr} library package loaded
-  }
-}
-
-\section{Sources}{
-
-  \tabular{llllllll}{
-  \tab 2014-07-02 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
-  }
-  \tabular{ll}{
-  \tab Richie Cotton, April 24, 2012 \cr
-  \tab \url{http://stackoverflow.com/questions/10294284/remove-all-special-characters-from-a-string-in-r} \cr
-  \tab Dason, Jun 2, 2012 \cr
-  \tab \url{http://stackoverflow.com/questions/10865095/why-do-i-get-warning-longer-object-length-is-not-a-multiple-of-shorter-object-l} \cr
-  }
-}
-
-\section{Adapted}{
-
-  -
-}
-
-\section{Revisions}{
-
-  \tabular{lllllllll}{
-  \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
-  \tab 0.2   \tab\tab 2014-09-11    \tab\tab BLC   \tab\tab Fixed match to return proper result value
-                            Replaced length with nrow to get proper # of rows (vs. df width/cols)
-                            Replaced == with %in% for comparisons \cr
-  \tab 0.3   \tab\tab 2014-09-25    \tab\tab BLC   \tab\tab Park, sample fraction type name added to parameters \cr
-  }
-}
-
-\section{Requirements}{
-
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   stringr library package loaded \cr
-}
+none
 }
 
 \section{Sources}{
@@ -118,14 +53,12 @@ Lookup dependent characteristic result value (pH, H20 temp, hardness)
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
   \tab 0.2   \tab\tab 2014-09-11    \tab\tab BLC   \tab\tab Fixed match to return proper result value \cr
- \tab\tab\tab\tab\tab\tab\tab Replaced length with nrow to get proper # of rows (vs. df width/cols)
- \tab\tab\tab\tab\tab\tab\tab Replaced == with \%in\% for comparisons \cr
-
+  \tab\tab\tab\tab\tab\tab\tab Replaced length with nrow to get proper # of rows (vs. df width/cols) \cr
+  \tab\tab\tab\tab\tab\tab\tab Replaced == with \%in\% for comparisons \cr
+  \tab 0.3   \tab\tab 2014-11-1    \tab\tab BLC   \tab\tab Documentation update \cr
    }
 }
 \seealso{
-Other WQ Results functions: \code{\link{AddResultColumns}}
-
 Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{compareToStandards}};
   \code{\link{depCharResultsLookup}};

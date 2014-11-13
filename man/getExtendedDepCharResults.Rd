@@ -5,9 +5,6 @@
 \usage{
 getExtendedDepCharResults()
 }
-\arguments{
-\item{none}{}
-}
 \value{
 df - dfDepCharResults plus pH, Hardness, Temp, Hardness_UOM, Temp_UOM, CalcFormula,
        Values for these variables are in separate columns of the result dataframe.
@@ -24,12 +21,7 @@ Fetch dependent char results with lookup values for calculating dependent standa
 
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   sqldf library package loaded \cr
-}
+ none
 }
 
 \section{Sources}{
@@ -64,7 +56,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

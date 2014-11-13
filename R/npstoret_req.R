@@ -3,7 +3,7 @@
 # ------------------------------------
 #'
 #'
-#'
+#'@description
 #' When connecting an NPSTORET local database to npstoret2R, the following tables MUST be present.
 #' If they are missing, npstoret2R will be unable to run the queries necessary to connect results
 #' with characteristic water quality standards.
@@ -29,7 +29,7 @@
 #'  \item qryTaxon *
 #'  \item tblDef_BIOPT *
 #' }
-#' * Required only for \code{\link{loadNPSTORET()}} ( \code{\link{loadNPSTORETWQData()}} does not use these tables).
+#' * Required only for \code{\link{loadNPSTORETData}} ( \code{\link{loadNPSTORETWQData}} does not use these tables).
 #' 
 #' Because of the sometimes large data sets, it is highly recommended that a local copy of your
 #' NPSTORET Access database be used. 
@@ -42,6 +42,6 @@
 #' with specifics so this success can be documented.
 #'
 #' @docType package
-#' @name NPSTORET_requirements
+#' @name NPSTORET requirements
 
 NULL

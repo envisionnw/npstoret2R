@@ -18,11 +18,7 @@ Generate dataframes for dependent characteristics
 
 \section{Requirements}{
 
-  \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
- }
+ none
 }
 
 \section{Sources}{
@@ -41,6 +37,7 @@ Generate dataframes for dependent characteristics
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-09-09    \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{
@@ -57,7 +54,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

@@ -13,7 +13,21 @@ calculateStdValues(depChar, depCharValue, depCharValue2, coef1, coef2, coef3,
 
 \item{depCharValue2}{- result value of second dependent characteristic (temp, water) if present}
 
-\item{coef1:coef8}{- NPSTORET calculation coefficients 1-8}
+\item{coef1}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef2}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef3}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef4}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef5}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef6}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef7}{- NPSTORET calculation coefficients 1-8}
+
+\item{coef8}{- NPSTORET calculation coefficients 1-8}
 }
 \value{
 resultVal - results value for the matched characteristic
@@ -23,12 +37,7 @@ Add calc std values to dfResults
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   stringr library package loaded \cr
-}
+none
 }
 
 \section{Sources}{
@@ -47,6 +56,7 @@ Add calc std values to dfResults
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation udpate \cr
   }
 }
 \seealso{
@@ -63,7 +73,6 @@ Other WQ Standards functions: \code{\link{compareToStandards}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

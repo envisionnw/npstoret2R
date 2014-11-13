@@ -12,7 +12,7 @@ mgsub(pattern, replacement, x, ...)
 
 \item{x}{- string to inspect}
 
-\item{...}{-}
+\item{...}{- additional gsub parameters}
 }
 \value{
 result - the original x string with pattern replaced by replacement
@@ -39,6 +39,7 @@ gsub function for multiple replacements
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-09-30 \tab\tab BLC  \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11 \tab\tab BLC  \tab\tab Updated documentation \cr
   }
 }
 \seealso{

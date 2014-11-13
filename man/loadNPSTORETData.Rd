@@ -6,20 +6,15 @@ Load NPSTORET data & populate data frame (dfName)}
 \usage{
 loadNPSTORETData()
 }
-\arguments{
-\item{N/A}{}
-}
 \description{
 loadNPSTORETData
 Load NPSTORET data & populate data frame (dfName)
 }
 \section{Requirements}{
 
-\tabular{l}{
-  RODBC library package loaded \cr
-  Working directory set for app \cr
-  SQL query for NPSTORET data must be located in the app's SQL directory \cr
-  SQL query filename must be SQLquery_NPSTORET_qryResultsAllOrganizations_altered.txt \cr
+R libraries:
+\itemize{
+  \item RODBC
 }
 }
 
@@ -42,13 +37,14 @@ Load NPSTORET data & populate data frame (dfName)
                             to values in original column's factor list
                             Drop levels to avoid retaining unused levels in df \cr
   \tab 0.5   \tab\tab 2014-09-19  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
-  \tab 0.6   \tab\tab 2014-10-09  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
+  \tab 0.6   \tab\tab 2014-10-09  \tab\tab BLC  \tab\tab Documentation update \cr
   \tab 0.7   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
+  \tab 0.8   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Updated documentation & removed odbcClose \cr
   }
 }
 \seealso{
 Other NPSTORET functions: \code{\link{getFilteredNPSTORETData}};
-  \code{\link{getParksList}};
+  \code{\link{getParkData}}; \code{\link{getParksList}};
   \code{\link{loadNPSTORETWQData}}
 }
 

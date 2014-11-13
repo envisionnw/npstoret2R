@@ -10,6 +10,8 @@ depCharResultsLookup(dfDepCharResults, characteristic, startVisitDate,
 \item{dfDepCharResults}{- WQ Results dataframe for pH, temp, hardness (Ca+Mg)
 (optional, if already generated)}
 
+\item{characteristic}{- dependent characteristic to lookup}
+
 \item{startVisitDate}{- target visit date (start of range)}
 
 \item{endVisitDate}{- target visit date (end of range), use startVisitDate if looking
@@ -31,11 +33,9 @@ Fetch specific Dependent Characteristic NPSTORET WQ Result
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORET function \cr
-   sqldf library package loaded \cr
+R libraries
+\itemize{
+ \item \code{\link[sqldf]{sqldf}}
 }
 }
 
@@ -58,6 +58,7 @@ Fetch specific Dependent Characteristic NPSTORET WQ Result
   \tab 0.2   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Added stringsAsFactors=FALSE to avoid
                             factorization of df character strings &
                             subsequent limitation of df to those values \cr
+  \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
  }
 }
 \seealso{
@@ -74,7 +75,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

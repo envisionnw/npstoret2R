@@ -12,9 +12,7 @@
 
 # ----------------------------------------------------------------------
 #' @title initializeEnvironment
-#' @description Load functions and information into global (working) environment
-#'                    
-#' @param none
+#' @description Load packages, functions and NPSTORET data into global (working) environment
 #'
 #' @section Requirements:
 #'   none
@@ -26,20 +24,24 @@
 #' @section Revisions:
 #' \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-09-30  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-08  \tab\tab BLC   \tab\tab Documentation update, removed unused siny, reshape2, & stringr package calls \cr
 #'   }
+#'
+#' @usage
+#' initializeEnvironment() 
+#'         
+#' @section Notes:
+#' This function accomplishes the following tasks: 
+#' \itemize{
+#' \item Increases memory limit to 4095
+#' \item Calls necessary libraries - tools, RODBC, sqldf
+#' \item Loads app class and packages functions into the environment
+#' }
+#'   
 #' @family app initialization functions
 #' @export
 # ----------------------------------------------------------------------
 initializeEnvironment <- function(){
-  
-# get this file's working directory
-#  this.dir <- dirname(parent.frame(2)$ofile)
-#  setwd(this.dir)
-  
-#  system.file("NCPN_NPSTORET_WQ", "R_NCPN_initialize_functions.R", package="NCPN_NPSTORET_WQ")
-  
-  # set the working directory
-  #setwd("H:/Bonnie_files/__Projects/R_code_NPSTORET_WQstd_import")
 
   setWindowTitle("NCPN NPSTORET WQ App")
 
@@ -50,21 +52,14 @@ initializeEnvironment <- function(){
   # --- load packages  --- 
   # ----------------------
   # ensure required packages are installed, if not install them
-  #pkgTest("stringr")
   pkgTest("tools")
   pkgTest("RODBC")
   pkgTest("sqldf")
-  pkgTest("shiny")
-  pkgTest("sqldf")
-  pkgTest("reshape2")
   
   # reference packages
-  #library(stringr)
   library(tools)
   library(RODBC)
-  library(shiny)
   library(sqldf)
-  #library(reshape2)
   
   # ----------------------
   # --- load classes --- 
@@ -73,11 +68,7 @@ initializeEnvironment <- function(){
   # App Class
   filePath = paste(getwd(),"/R/R_app_class.R",sep="")
   source(filePath)
-  
-  # Samples & Standards Classes
-  #filePath = paste(getwd(),"/R/R_sample_class.R",sep="")
-  #source(filePath)  
-  
+    
   # ----------------------
   # --- load functions --- 
   # ----------------------
@@ -85,9 +76,6 @@ initializeEnvironment <- function(){
   # helpers
   filePath = paste(getwd(),"/R/R_helper_functions.R",sep="")
   source(filePath)
-  # db
-  #filePath = paste(getwd(),"/R/R_db_functions.R",sep="")
-  #source(filePath)
   # NPSTORET
   filePath = paste(getwd(),"/R/R_NPSTORET_functions.R",sep="")
   source(filePath)
@@ -120,18 +108,14 @@ initializeEnvironment <- function(){
 #'              }
 #'              * Dependent characteristics include standard values which depend on other sample results (like pH, temp, hardness (Ca + Mg), time).
 #'                Independent characteristics include standard values that do not rely on other sample results.      
-#' @param app - The application variable in the Global Environment which contains the 
-#'              database filename and path (app[['dbfilepathname']]). 
-#'              Without this value the function will fail to find the defined file name and path and
-#'              the database connections for loading from NPSTORET will fail
-#'              with a somewhat cryptic "first argument is not an open RODBC channel" error.
 #'
 #' @section Requirements:
-#'   \tabular{l}{
-#'   RODBC library \cr
-#'   sqldf library \cr
-#'   app dbfilepathname for valid NPSTORET database with required tables \cr
+#' R libraries:
+#'   \itemize{
+#'   \item RODBC
+#'   \item sqldf
 #'   }
+#' Valid NPSTORET database app dbfilepathname with required tables \cr
 #'
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -140,24 +124,18 @@ initializeEnvironment <- function(){
 #' @section Revisions:
 #' \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-10-05  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-08  \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family app initialization functions
 #' @export
 # ----------------------------------------------------------------------
 initializeData <- function(){
-  
-#  app <- dbfilepathname(app, dbfilepathname)
-  #npstoret <- odbcConnectAccess2007(app[["dbfilepathname"]])
-  #dfResults <- loadNPSTORETWQData("Results")
-  
-#  app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
-  
-  
+    
   # ------------------------
   #  Fetch NPSTORET Results
   # ------------------------
   # Start the clock!
-  ptm <- proc.time()
+  #ptm <- proc.time()
   
   dfResults <- loadNPSTORETWQData("Results")
   assign("dfResults", dfResults, envir=.GlobalEnv)
@@ -167,8 +145,6 @@ initializeData <- function(){
   # ------------------------
   
   # prepare subsets for identifying if results have indep std / dep std / no std
-  
-  #app <- dbfilepathname(app, "U:/NCPN_WORK/___TEST_DATA/NPSTORET_BE_rw_20140814.MDB")
   dfRAWStds <- getWQRawStdCharacteristics()
   assign("dfRAWStds", dfRAWStds, envir=.GlobalEnv)
   
@@ -225,12 +201,7 @@ initializeData <- function(){
   # unique(dfRAWDepChars$DISPLAY_NAME) # 11 stds: Cd, Cu, Pb, Ni, Ag, U, Mn, N, Zn, PCP, Temp
   # unique(depStds$DISPLAY_NAME) # matches dfRAWDepChars
   # unique(depStds$LocCHDEF_IS_NUMBER)
-  
-  # remove chars
-  # rm(dfRAWDepChars)
-  # rm(dfIndepChars)
-  # rm(dfDepCharResults) #38171
-  
+    
   # ------------------------
   #  Prep Results (add cols)
   # ------------------------
@@ -252,15 +223,7 @@ initializeData <- function(){
   allres$DepCharLookup <- "pH"
   
   assign("allres", allres, envir=.GlobalEnv)
-  
-  # lookup same sample station/date/medium/field_lab/smpl_frac_type_nm/uom in dfDepCharResults
-  #rm(dStds)
-  #rm(dfResults)
-  #rm(indepStds)
-  #rm(res)
-  #rm(depStds)
-  #rm(dfIndepChars)
-  
+    
   # subset dfDepCharResults to reduce memory issues
   pH <- dfDepCharResults[dfDepCharResults$DISPLAY_NAME == "pH",] # 14827 / 65
   Temp <- dfDepCharResults[dfDepCharResults$DISPLAY_NAME == "Temperature, water",] # 12111 / 65
@@ -272,6 +235,6 @@ initializeData <- function(){
   assign("Hardness", Hardness, envir=.GlobalEnv)
 
   # Stop clock
-  proc.time() - ptm
-  print(proc.time()-ptm)
+  #proc.time() - ptm
+  #print(proc.time()-ptm)
 }

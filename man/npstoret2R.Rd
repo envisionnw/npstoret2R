@@ -5,9 +5,6 @@
 \alias{npstoret2R-package}
 \title{Import NPSTORET data into R with npstoret2R!}
 \description{
-
-}
-\details{
 \bold{ CONNECT, IMPORT, & ANALYZE }
 
 It's best if you're working from a local copy of your
@@ -69,7 +66,7 @@ tool. There is no substitute for the clear thinking of the
 well-trained scientific mind. No program, however excellent it may
 be, can substitute for good judgement and thoughtful, thorough analysis.
 
-NOTE:
+ NOTE:
    ** Standards that are time dependent are currently omitted from
    calculation.
 }

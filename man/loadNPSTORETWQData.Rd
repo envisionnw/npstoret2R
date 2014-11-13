@@ -6,12 +6,7 @@
 loadNPSTORETWQData(datatype = "Results", filter = "")
 }
 \arguments{
-\item{filter}{- the WQ standard to filter by (see usage below)}
-
-\item{app}{- global application database settings (dbfilepathname, dbusername, dbpwd in particular).
-These are passed to ensure the database file information is available for making the connection.}
-
-\item{dataType}{- String (enclosed in quotes) that identifies what data should be retrieved.
+\item{datatype}{- String (enclosed in quotes) that identifies what data should be retrieved.
                 This identifies which SQL query should be run to retrieve data from NPSTORET.
                 Possible values, what they return, & the related SQL query include:
                 \itemize{
@@ -36,6 +31,8 @@ These are passed to ensure the database file information is available for making
 
                 Good time to take a break from the computer screen if you have a very large data set!
                 }}
+
+\item{filter}{- the WQ standard to filter by (see examples below)}
 }
 \value{
 df - dataframe with the desired NPSTORET results, characteristics, criteria (as selected by "dataType")
@@ -45,7 +42,10 @@ Load NPSTORET data & populate data frame
 }
 \section{Requirements}{
 
-  RODBC library package loaded
+r Libraries:
+\itemize{
+ \item \code{\link[RODBC]}
+}
 }
 
 \section{Notes}{
@@ -90,11 +90,12 @@ Load NPSTORET data & populate data frame
                          which can cause later manipulation problems \cr
   \tab 0.7   \tab\tab 2014-09-19  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
   \tab 0.8   \tab\tab 2014-10-05  \tab\tab BLC  \tab\tab Updated directory location for package \cr
-  \tab 0.8   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
+  \tab 0.9   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
+  \tab 0.10   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Documentation updated & removed odbcClose to leave connection available \cr
   }
 }
 \examples{
-Typically calls are made to retrieve all results, then WQ characteristics.
+## Typically calls are made to retrieve all results, then WQ characteristics.
 
     \dontrun{
        # get results
@@ -104,7 +105,7 @@ Typically calls are made to retrieve all results, then WQ characteristics.
        dfChars <- loadNPSTORETData("WQProjStnStdCritAlt")
     }
 
-  Limited filtering is available for water quality standards.
+## Limited filtering is available for water quality standards.
   \dontrun{
        # get a filtered list of standards for Colorado Cold Water
        dfCOCWStds <- loadNPSTORETData("WQstdsFiltered","CO_ALCW1")
@@ -112,7 +113,7 @@ Typically calls are made to retrieve all results, then WQ characteristics.
 }
 \seealso{
 Other NPSTORET functions: \code{\link{getFilteredNPSTORETData}};
-  \code{\link{getParksList}};
+  \code{\link{getParkData}}; \code{\link{getParksList}};
   \code{\link{loadNPSTORETData}}
 }
 

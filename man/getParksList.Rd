@@ -31,6 +31,7 @@ Return a list of Park abbreviations from dataframe
 }
 \seealso{
 Other NPSTORET functions: \code{\link{getFilteredNPSTORETData}};
+  \code{\link{getParkData}};
   \code{\link{loadNPSTORETData}};
   \code{\link{loadNPSTORETWQData}}
 }

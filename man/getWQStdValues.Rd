@@ -6,16 +6,16 @@
 getWQStdValues(dfWQstds)
 }
 \arguments{
-\item{dependency}{- value for NPSTORET characteristic upon which the desired characteristic is based}
+\item{dfWQstds}{- NPSTORET water quality standards data frame}
 }
 \description{
 Fetch NPSTORET WQ Standard Values for Calculated & Uncalculated Characteristics
 }
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
+\itemize{
+ \item \code{\link[RODBC]}
+ \item \code{\link[sqldf]{sqldf}}
 }
 }
 
@@ -45,7 +45,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdDepCharDisplayName}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

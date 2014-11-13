@@ -3,18 +3,17 @@
 \name{app}
 \alias{app}
 \title{app Class}
-\format{\preformatted{List of 4
- $ dbfilepathname    : chr "LOCATION OF DATABASE FILE"
- $ dbusername        : chr ""
- $ dbpwd             : chr ""
- $ sqlQueriesFilepath: chr ""
+\format{\preformatted{List of 3
+ $ dbfilepathname: chr "LOCATION OF DATABASE FILE"
+ $ dbusername    : chr ""
+ $ dbpwd         : chr ""
  - attr(*, "class")= chr "app"
 }}
 \usage{
 app
 }
 \arguments{
-\item{apppathname}{- database name & directory path}
+\item{dbfilepathname}{- database name & directory path}
 
 \item{username}{- database username (for authentication)}
 
@@ -24,12 +23,15 @@ app
 app Class
 }
 \details{
-Create a database object whose connection parameters are contained within the object
+Creates a database object whose connection parameters are contained within the object.
 }
 \section{Requirements}{
 
-  RODBC library
-  tools library
+R Libraries:
+\itemize{
+ \item RODBC
+ \item tools
+}
 }
 
 \section{Sources}{
@@ -43,7 +45,21 @@ Create a database object whose connection parameters are contained within the ob
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-10-05  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.1   \tab\tab 2014-11-07  \tab\tab BLC   \tab\tab Documentation update & removed sqlQUeriesFilepath since SQL queries are integrated \cr
   }
+}
+\examples{
+## Create the application object (app) and assign the NPSTORET backend filename.
+## Paths should be written UNIX style with / vs. \\ .
+## So a windows file path like "C:\\db\\dbname.mdb" should be written "C:/db/dbname.mdb".
+
+\dontrun{
+app <- dbfilepathname(app, "C:/my_database/NPSTORET_BE.MDB")
+
+Connect to your database via a DSN-less connection.
+
+app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
+}
 }
 \keyword{datasets}
 

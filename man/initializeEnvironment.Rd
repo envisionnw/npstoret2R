@@ -5,11 +5,8 @@
 \usage{
 initializeEnvironment()
 }
-\arguments{
-\item{none}{}
-}
 \description{
-Load functions and information into global (working) environment
+Load packages, functions and NPSTORET data into global (working) environment
 }
 \section{Requirements}{
 
@@ -27,7 +24,18 @@ Load functions and information into global (working) environment
 
 \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-09-30  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-08  \tab\tab BLC   \tab\tab Documentation update, removed unused siny, reshape2, & stringr package calls \cr
   }
+}
+
+\section{Notes}{
+
+This function accomplishes the following tasks:
+\itemize{
+\item Increases memory limit to 4095
+\item Calls necessary libraries - tools, RODBC, sqldf
+\item Loads app class and packages functions into the environment
+}
 }
 \seealso{
 Other app initialization functions: \code{\link{initializeData}}

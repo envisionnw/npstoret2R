@@ -9,19 +9,28 @@ getParkData(df, parkAbbrev)
 \item{df}{- data frame holding park data}
 
 \item{parkAbbrev}{- park name abrev (ARCH, CANY, etc.)}
-
-\item{col}{- column to compare from dataframe}
 }
 \description{
 Pull park data from dataframe
 }
 \section{Sources}{
 
-  2014-05-07 B. Campbell 0.1 Initial version
+\tabular{llllllll}{
+  \tab 2014-05-07 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
+  }
 }
 
 \section{Revisions}{
 
-  0.1   2014-05-07  BLC   Initial version
+\tabular{llllllll}{
+  \tab 0.1   \tab\tab 2014-05-07  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
+  }
+}
+\seealso{
+Other NPSTORET functions: \code{\link{getFilteredNPSTORETData}};
+  \code{\link{getParksList}};
+  \code{\link{loadNPSTORETData}};
+  \code{\link{loadNPSTORETWQData}}
 }
 

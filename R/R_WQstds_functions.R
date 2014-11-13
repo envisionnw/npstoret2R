@@ -11,7 +11,7 @@
 #              
 # Revisions:  0.1  2014-06-13  B. Campbell  initial version
 #             0.2  2014-09-08  B. Campbell  use droplevels to remove unused levels from dfs
-#             0.x  2014-05-14  B. Campbell  XXXX
+#             0.3  2014-11-11  B. Campbell  update documentation
 # ==========================================================
 #
 # Process:
@@ -64,13 +64,10 @@
 #' @note Standards are 'raw' pulled directly from NPSTORET - NO CALCULATED VALUES!
 #'       DO NOT USE for dependent characteristic standard values
 #'
-#' @param none
-#'
 #' @section Requirements:
-#' \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
+#' R libraries:
+#' \itemize{
+#'    \item RODBC
 #'   }
 #'
 #' @section Sources:
@@ -83,6 +80,7 @@
 #'   \tab 0.2   \tab\tab 2014-06-24 \tab\tab   BLC  \tab\tab Added StnID column & converted to non-scientific notation \cr
 #'   \tab 0.3   \tab\tab 2014-09-08 \tab\tab   BLC  \tab\tab Drop unused levels \cr
 #'   \tab 0.4   \tab\tab 2014-10-05 \tab\tab   BLC  \tab\tab Add check to ensure dfRAWStds is a data.frame \cr
+#'   \tab 0.5   \tab\tab 2014-11-11 \tab\tab   BLC  \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -95,12 +93,7 @@ getWQRawStdCharacteristics <- function(){
     # convert StationID to non-scientific notation
     # add nonsci column
     dfRAWstds$Station_ID <- format(dfRAWstds$StationID, scientific = FALSE)
-    
-    # add columns CalcStdValue & Lookup Criteria 
-    # (these WILL be NULL, but are needed for merging dataframes)
-    #dfRAWstds$CalcStdValue <- format(dfRAWstds$StationID, scientific = FALSE)
-    #dfRAWstds$LookupCriteria <- format(dfRAWstds$StationID, scientific = FALSE)
-    
+        
     # remove spaces in column names
     names(dfRAWstds) <- sub(" ", "_", names(dfRAWstds))
     
@@ -118,15 +111,10 @@ getWQRawStdCharacteristics <- function(){
 #' @title getIndepWQStdChars
 #' @description Fetch ALL NPSTORET WQ Standard Characteristics for Independent (Uncalculated) Standards
 #'
-#'
-#' @param none
-#'
 #' @section Requirements:
-#'   \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
+#'  R libraries:
+#'   \itemize{
+#'    \item RODBC
 #'   }
 #' @section Sources:
 #'   \tabular{llllllll}{
@@ -138,32 +126,22 @@ getWQRawStdCharacteristics <- function(){
 #'   \tab 0.2   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Added stringsAsFactors = FALSE to prevent
 #'                             factorization of df strings & subsequent
 #'                             limitation of df values & fix df names & station \cr
+#'   \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update, add check for dfRAWstds & remove sqldf depedency \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
 # ----------------------------------------------------------------------
-getIndepWQStdChars <- function(){  
-  dfRAWstds <- getWQRawStdCharacteristics()
+getIndepWQStdChars <- function(){
 
-  # requires sqldf
-  pkgTest("sqldf")
-  library(sqldf)
+  # check for dfRAWstds
+  if (!(dfExists(dfRAWstds, "dfRAWstds"))) {
+    dfRAWstds <- getWQRawStdCharacteristics()
+  }
   
   # subset only chars
   #       a) Independent Criteria - IsDependent = 0, No DependentCharacteristic
+  dfIndepStds <- dfRAWstds[, IsDependent = 0]
 
-  dfIndepStds = sqldf("SELECT * FROM dfRAWstds WHERE IsDependent = 0", stringsAsFactors=FALSE)
-
-  # convert StationID to non-scientific notation
-  # add nonsci column
-  dfIndepStds$Station_ID <- format(dfIndepStds$StationID, scientific = FALSE)
-  
-  # remove spaces in column names
-  names(dfIndepStds) <- sub(" ", "_", names(dfIndepStds))
-  
-  # reorder columns (places Station_ID after StationID)
-  dfIndepStds <- dfIndepStds[,c(1:16,44,17:43)]
-  
   # remove unused levels
   dfIndepStds <- droplevels(dfIndepStds)
   
@@ -177,16 +155,11 @@ getIndepWQStdChars <- function(){
 #' @title getRAWDepWQStdChars
 #' @description fetch ALL NPSTORET WQ Standard Characteristics for Dependent (Uncalculated) Standards
 #'
-#'
-#' @param none
-#'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
-#' }
+#'  R libraries:
+#'   \itemize{
+#'    \item RODBC
+#'   }
 #' 
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -202,30 +175,21 @@ getIndepWQStdChars <- function(){
 #'   \tab 0.5   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Added stringsAsFactors = FALSE to prevent
 #'                             factorization of df strings & subsequent
 #'                             limitation of df values, fix spaces & reordering df \cr
+#'   \tab 0.6   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update, add check for dfRAWStds & remove sqldf depedency \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
 # ----------------------------------------------------------------------
 getRAWDepWQStdChars <- function(){  
-  dfRAWstds <- getWQRawStdCharacteristics()
-  
-  # requires sqldf
-  pkgTest("sqldf")
-  library(sqldf)
+
+  # check for dfRAWstds
+  if (!(dfExists(dfRAWstds, "dfRAWstds")) ){
+    dfRAWstds <- getWQRawStdCharacteristics()
+  }
   
   # subset only chars
   #       b) Dependent Criteria - IsDependent = 1, DependentCharacteristic present
-  dfRAWDepWQStdChars = sqldf("SELECT * FROM dfRAWstds WHERE IsDependent = 1", stringsAsFactors=FALSE)
-
-  # convert StationID to non-scientific notation
-  # add nonsci column
-  dfRAWDepWQStdChars$Station_ID <- format(dfRAWDepWQStdChars$StationID, scientific = FALSE)
-
-  # remove spaces in column names
-  names(dfRAWDepWQStdChars) <- sub(" ", "_", names(dfRAWDepWQStdChars))
-  
-  # reorder columns (places Station_ID after StationID)
-  dfRAWDepWQStdChars <- dfRAWDepWQStdChars[,c(1:16,44,17:43)]
+  dfRAWDepWQStdChars <- dfRAWstds[, IsDependent = 1]
     
   # remove unused levels
   dfRAWDepWQStdChars <- droplevels(dfRAWDepWQStdChars)
@@ -240,27 +204,22 @@ getRAWDepWQStdChars <- function(){
 #' @title getDepCharResults
 #' @description Fetch ALL NPSTORET WQ Results for Dependent Characteristics
 #'
-#'
 #' @param dfResults - WQ Results dataframe (optional, if already generated)
-#' @param startVisitDate - target visit date (start of range)
-#' @param endVisitDate   - target visit date (end of range), use startVisitDate if looking
-#'                    for characteristics for one visit date
-#' @param stationID - specific stationID, default = 0 for ALL stations
-#' @section Returns:
+#' 
+#' @return
 #'   dataframe - contains dependent characteristic results (pH, temp, hardness(Ca+Mg))
 #'               for all stations & visits (filters results by dependent chars)
 #'               
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORETWQData function \cr
-#'    sqldf library package loaded \cr
-#' }
+#'  R libraries:
+#'   \itemize{
+#'    \item RODBC
+#'    \item sqldf
+#'   }
 #'
 #' @section Sources:
 #'   Sven Hohenstein, December 13, 2013
-#'   \link{http://stackoverflow.com/questions/20573119/check-if-data-frame-exists}
+#'   \url{http://stackoverflow.com/questions/20573119/check-if-data-frame-exists}
 #' @section Adapted:
 #' \tabular{llllllll}{
 #'   \tab 2014-06-25 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
@@ -272,6 +231,7 @@ getRAWDepWQStdChars <- function(){
 #'   \tab 0.3   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Include StringsAsFactors = FALSE to ensure
 #'                             characters are not limited to factor values \cr
 #'   \tab 0.4   \tab\tab 2014-10-05    \tab\tab BLC   \tab\tab Change results check to use loadNPSTORETWQData() vs loadNPSTORETData() \cr
+#'   \tab 0.5   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -283,10 +243,6 @@ getDepCharResults <- function(dfResults){
     dfResults <- loadNPSTORETWQData("Results")   
   }
   
-  # requires sqldf
-  pkgTest("sqldf")
-  library(sqldf)
-
   #fetch characteristics list
   dfChars <- loadNPSTORETWQData("Characteristics")
   
@@ -315,12 +271,8 @@ getDepCharResults <- function(dfResults){
 #'   N/A - nothing
 #'
 #' @section Requirements:
-#'   \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'  }
-#'
+#'  none
+#'  
 #' @section Sources:
 #'  \tabular{llllllll}{
 #'   \tab 2014-09-09 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
@@ -330,6 +282,7 @@ getDepCharResults <- function(dfResults){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-09-09    \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -346,12 +299,7 @@ getDepCharDfs <- function(results){
   
   for (i in 1:nrow(depCharMatrix)){
   
-    # create the dynamically named data frames & return as a list
-    #assign(paste("df", depCharMatrix[i,1], sep = '_'), droplevels(results[which(results$DISPLAY_NAME == depCharMatrix[i,2]), ]))
-    #assign("df",paste("df", depCharMatrix[i,1], sep = ''))
-    #$df<-droplevels(results[which(results$DISPLAY_NAME == depCharMatrix[i,2]), ])
-    #assign(paste("df", depCharMatrix[i,1], sep = ''), droplevels(results[which(results$DISPLAY_NAME == depCharMatrix[i,2]), ]))
-    
+    # create the dynamically named data frames & return as a list    
     dfs[[depCharMatrix[i,1]]] <- droplevels(results[which(results$DISPLAY_NAME == depCharMatrix[i,2]), ])
   
   }
@@ -371,12 +319,7 @@ getDepCharDfs <- function(results){
 #'          The values for these variables are in separate columns of the result dataframe.
 #'
 #' @section Requirements:
-#' \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
-#'}
+#'  none
 #'
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -387,6 +330,7 @@ getDepCharDfs <- function(results){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-09-17    \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -428,13 +372,8 @@ getStdDepCharDisplayName <- function(depCharacteristic){
 #'          The values for these variables are in separate columns of the result dataframe.
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
-#' }
-#'
+#'  none
+#' 
 #' @section Sources:
 #'   \tabular{llllllll}{
 #'   \tab 2014-06-30 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
@@ -444,6 +383,7 @@ getStdDepCharDisplayName <- function(depCharacteristic){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-06-30    \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -483,11 +423,9 @@ getStdFormula <- function(depCharacteristic){
 #' @return lnVal - numeric value for the log 10 of hardness OR -99999999 if hardness = 0
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
+#'  R libraries:
+#'   \itemize{
+#'    \item RODBC
 #' }
 #'
 #' @section Sources:
@@ -503,6 +441,7 @@ getStdFormula <- function(depCharacteristic){
 #'                             log(hardness) vs. log(10, hardness) where 10 identifies base 10
 #'                             & added check for hardness values = "*Non-detect"
 #'                             added NULL check & as.numeric for handling hardness log evaluations \cr
+#'   \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
@@ -538,22 +477,18 @@ getHardnessLnVal <- function(hardness){
 #' @title lookupDependentCharResult
 #' @description Lookup dependent characteristic result value (pH, H20 temp, hardness)
 #'
-#' @param depChar   - NPSTORET dependent characteristic value (CharDependent)
-#' @param stationID - NPSTORET StationID
-#' @param startDate - NPSTORET visit StartDate
-#' @param uom       - NPSTORET unit of measure (UOM)
-#' @param medium    - NPSTORET measurement medium (MEDIUM)
-#' @param field_lab - NPSTORET field or lab mesurement (FIELD_LAB)
+#' @param depChar       - NPSTORET dependent characteristic value (CharDependent)
+#' @param stationID     - NPSTORET StationID
+#' @param startDate     - NPSTORET visit StartDate
+#' @param startTimeZone - NPSTORET visit StartTimeZone
+#' @param uom           - NPSTORET unit of measure (UOM)
+#' @param medium        - NPSTORET measurement medium (MEDIUM)
+#' @param field_lab     - NPSTORET field or lab mesurement (FIELD_LAB)
 #'
 #' @return resultVal - results value for the matched characteristic
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    stringr library package loaded \cr
-#' }
+#' none
 #'
 #' @section Sources:
 #'   \tabular{llllllll}{
@@ -570,9 +505,9 @@ getHardnessLnVal <- function(hardness){
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
 #'   \tab 0.2   \tab\tab 2014-09-11    \tab\tab BLC   \tab\tab Fixed match to return proper result value \cr
-#'  \tab\tab\tab\tab\tab\tab\tab Replaced length with nrow to get proper # of rows (vs. df width/cols)
-#'  \tab\tab\tab\tab\tab\tab\tab Replaced == with \%in\% for comparisons \cr
-#'
+#'   \tab\tab\tab\tab\tab\tab\tab Replaced length with nrow to get proper # of rows (vs. df width/cols) \cr
+#'   \tab\tab\tab\tab\tab\tab\tab Replaced == with \%in\% for comparisons \cr
+#'   \tab 0.3   \tab\tab 2014-11-1    \tab\tab BLC   \tab\tab Documentation update \cr
 #'    }
 #' @family WQ Standards functions
 #' @export
@@ -695,12 +630,7 @@ dfMatch <- dfDepCharLookup[with(dfDepCharLookup,
 #'                       at the station/project identified
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    stringr library package loaded \cr
-#' }
+#' none
 #'
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -716,6 +646,7 @@ dfMatch <- dfDepCharLookup[with(dfDepCharLookup,
 #' \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
 #'   \tab 0.2   \tab\tab 2014-07-08    \tab\tab BLC   \tab\tab Removed with & identified dfIndepChars for df variables \cr
+#'   \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -783,18 +714,20 @@ return(indepCharStdValue)
 #'
 #' @param depChar       - NPSTORET dependent characteristic value (CharDependent)
 #' @param depCharValue  - result value of first dependent characteristic (pH, hardness, Ca+Mg)
-#' @param depCharValue2  - result value of second dependent characteristic (temp, water) if present
-#' @param coef1:coef8   - NPSTORET calculation coefficients 1-8
-#'
+#' @param depCharValue2 - result value of second dependent characteristic (temp, water) if present
+#' @param coef1         - NPSTORET calculation coefficients 1-8
+#' @param coef2         - NPSTORET calculation coefficients 1-8
+#' @param coef3         - NPSTORET calculation coefficients 1-8
+#' @param coef4         - NPSTORET calculation coefficients 1-8
+#' @param coef5         - NPSTORET calculation coefficients 1-8
+#' @param coef6         - NPSTORET calculation coefficients 1-8
+#' @param coef7         - NPSTORET calculation coefficients 1-8
+#' @param coef8         - NPSTORET calculation coefficients 1-8
+#' 
 #' @return resultVal - results value for the matched characteristic
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    stringr library package loaded \cr
-#' }
+#' none
 #'
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -805,6 +738,7 @@ return(indepCharStdValue)
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-07-02    \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation udpate \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -814,7 +748,7 @@ calculateStdValues <- function(depChar, depCharValue, depCharValue2, coef1, coef
   calcStd = ""
   
   calc = "no formula"
-  switch(as.character(depCharacteristic),
+  switch(as.character(depChar),
          "1e"= {  pH = depCharValue
                   calc = exp((coef1*pH)+coef2)},
          "1p"= {  pH = depCharValue
@@ -900,6 +834,7 @@ compareToStandards <- function(resultValue, stdValue, loHi){
 #'
 #' @param dfDepCharResults  - WQ Results dataframe for pH, temp, hardness (Ca+Mg)
 #'                       (optional, if already generated)
+#' @param characteristic    - dependent characteristic to lookup
 #' @param startVisitDate    - target visit date (start of range)
 #' @param endVisitDate      - target visit date (end of range), use startVisitDate if looking
 #'                       for characteristics for one visit date
@@ -913,11 +848,9 @@ compareToStandards <- function(resultValue, stdValue, loHi){
 #'                                     1 row (usable for calculations)
 #'                                     many rows (multiple visits or stations)
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
+#' R libraries
+#' \itemize{
+#'  \item \code{\link[sqldf]{sqldf}}
 #' }
 #'
 #' @section Sources:
@@ -932,6 +865,7 @@ compareToStandards <- function(resultValue, stdValue, loHi){
 #'   \tab 0.2   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Added stringsAsFactors=FALSE to avoid
 #'                             factorization of df character strings &
 #'                             subsequent limitation of df to those values \cr
+#'   \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
@@ -967,8 +901,6 @@ depCharResultsLookup <- function(dfDepCharResults, characteristic, startVisitDat
 #' @title getExtendedDepCharResults
 #' @description Fetch dependent char results with lookup values for calculating dependent standards, formulae, & calculated std
 #'
-#' @param none
-#'
 #' @section Assumptions:
 #'   NPSTORET results are available as dfResults
 #'
@@ -978,12 +910,7 @@ depCharResultsLookup <- function(dfDepCharResults, characteristic, startVisitDat
 #'        standard characteristics
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
-#'    LoadNPSTORET function \cr
-#'    sqldf library package loaded \cr
-#' }
+#'  none
 #'
 #' @section Sources:
 #' \tabular{llllllll}{
@@ -1271,12 +1198,12 @@ getFormulaUsed <- function(dependency,params){
 #' @title getWQStdValues
 #' @description Fetch NPSTORET WQ Standard Values for Calculated & Uncalculated Characteristics
 #'
-#' @param dependency - value for NPSTORET characteristic upon which the desired characteristic is based
+#' @param dfWQstds - NPSTORET water quality standards data frame
 #'
 #' @section Requirements:
-#'  \tabular{l}{
-#'    RODBC library package loaded \cr
-#'    Working directory set for app \cr
+#' \itemize{
+#'  \item \code{\link[RODBC]}
+#'  \item \code{\link[sqldf]{sqldf}}
 #' }
 #'
 #' @section Sources:

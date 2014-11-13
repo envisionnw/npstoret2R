@@ -8,6 +8,9 @@ as.is(x)
 \arguments{
 \item{x}{- any value}
 }
+\value{
+x - Returns the value unchanged.
+}
 \description{
 Leave the value unchanged
 }

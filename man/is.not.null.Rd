@@ -6,7 +6,12 @@
 is.not.null(x)
 }
 \arguments{
-\item{value}{x}
+\item{x}{- Value to check}
+}
+\value{
+TRUE - if value is not NULL
+
+FALSE - if value is NULL
 }
 \description{
 Determine if a value is or is not null
@@ -29,6 +34,7 @@ Determine if a value is or is not null
 
   \tabular{llllllll}{
   \tab 0.1    \tab\tab 2014-05-08  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation \cr
   }
 }
 \seealso{

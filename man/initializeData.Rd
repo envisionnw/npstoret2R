@@ -5,13 +5,6 @@
 \usage{
 initializeData()
 }
-\arguments{
-\item{app}{- The application variable in the Global Environment which contains the
-             database filename and path (app[['dbfilepathname']]).
-             Without this value the function will fail to find the defined file name and path and
-             the database connections for loading from NPSTORET will fail
-             with a somewhat cryptic "first argument is not an open RODBC channel" error.}
-}
 \description{
 Load NPSTORET data into global (working) environment
              The following data frames are generated:
@@ -35,11 +28,12 @@ Load NPSTORET data into global (working) environment
 }
 \section{Requirements}{
 
-  \tabular{l}{
-  RODBC library \cr
-  sqldf library \cr
-  app dbfilepathname for valid NPSTORET database with required tables \cr
+R libraries:
+  \itemize{
+  \item RODBC
+  \item sqldf
   }
+Valid NPSTORET database app dbfilepathname with required tables \cr
 }
 
 \section{Sources}{
@@ -53,6 +47,7 @@ Load NPSTORET data into global (working) environment
 
 \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-10-05  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-08  \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{

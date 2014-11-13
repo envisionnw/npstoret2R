@@ -3,18 +3,18 @@
 \alias{insert.column}
 \title{insert.column}
 \usage{
-insert.column(df, col, afterCol, copyCol, x, blnSciNotation = False)
+insert.column(df, col, afterCol, copyCol, blnSciNotation = FALSE)
 }
 \arguments{
-\item{df}{-         dataframe to insert column into}
+\item{df}{- dataframe to insert column into}
 
-\item{col}{-         name of column to insert}
+\item{col}{- name of column to insert}
 
-\item{afterCol}{-    column name before where the inserted column will be placed}
+\item{afterCol}{- column name before where the inserted column will be placed}
 
-\item{copyCol}{-     copied column name (default = '' meaning no column is copied)}
+\item{copyCol}{- copied column name (default = '' meaning no column is copied)}
 
-\item{blnSciNotation}{-  whether column should be in scientific notiation or not (default = false)}
+\item{blnSciNotation}{- whether column should be in scientific notiation or not (default = FALSE)}
 }
 \value{
 dataframe w/ new column
@@ -45,6 +45,7 @@ Used to insert a column into the middle of a dataframe
   \tabular{llllllll}{
   \tab 0.1   \tab \tab 2014-06-25 \tab \tab BLC  \tab \tab Initial version \cr
   \tab 0.2    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Added cleanup \cr
+  \tab 0.3    \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{

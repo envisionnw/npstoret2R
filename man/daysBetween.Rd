@@ -6,9 +6,9 @@
 daysBetween(firstDate, secondDate)
 }
 \arguments{
-\item{date1}{- first date}
+\item{firstDate}{- first date to compare}
 
-\item{date2}{- second date}
+\item{secondDate}{- second date to compare}
 }
 \value{
 integer - # of days between the 2 dates, 0 if first & second dates are the same
@@ -19,6 +19,7 @@ Returns number of days between two dates
 }
 \section{Sources}{
 
+  N/A
 }
 
 \section{Adapted}{
@@ -32,6 +33,7 @@ Returns number of days between two dates
 
 \tabular{llllllll}{
    \tab 0.1    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Initial version \cr
+   \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation  \cr
    }
 }
 \seealso{

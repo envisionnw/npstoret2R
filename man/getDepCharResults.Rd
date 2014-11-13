@@ -7,37 +7,27 @@ getDepCharResults(dfResults)
 }
 \arguments{
 \item{dfResults}{- WQ Results dataframe (optional, if already generated)}
-
-\item{startVisitDate}{- target visit date (start of range)}
-
-\item{endVisitDate}{- target visit date (end of range), use startVisitDate if looking
-for characteristics for one visit date}
-
-\item{stationID}{- specific stationID, default = 0 for ALL stations}
+}
+\value{
+dataframe - contains dependent characteristic results (pH, temp, hardness(Ca+Mg))
+              for all stations & visits (filters results by dependent chars)
 }
 \description{
 Fetch ALL NPSTORET WQ Results for Dependent Characteristics
 }
-\section{Returns}{
-
-  dataframe - contains dependent characteristic results (pH, temp, hardness(Ca+Mg))
-              for all stations & visits (filters results by dependent chars)
-}
-
 \section{Requirements}{
 
- \tabular{l}{
-   RODBC library package loaded \cr
-   Working directory set for app \cr
-   LoadNPSTORETWQData function \cr
-   sqldf library package loaded \cr
-}
+ R libraries:
+  \itemize{
+   \item RODBC
+   \item sqldf
+  }
 }
 
 \section{Sources}{
 
   Sven Hohenstein, December 13, 2013
-  \link{http://stackoverflow.com/questions/20573119/check-if-data-frame-exists}
+  \url{http://stackoverflow.com/questions/20573119/check-if-data-frame-exists}
 }
 
 \section{Adapted}{
@@ -55,6 +45,7 @@ Fetch ALL NPSTORET WQ Results for Dependent Characteristics
   \tab 0.3   \tab\tab 2014-09-18    \tab\tab BLC   \tab\tab Include StringsAsFactors = FALSE to ensure
                             characters are not limited to factor values \cr
   \tab 0.4   \tab\tab 2014-10-05    \tab\tab BLC   \tab\tab Change results check to use loadNPSTORETWQData() vs loadNPSTORETData() \cr
+  \tab 0.5   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{
@@ -71,7 +62,6 @@ Other WQ Standards functions: \code{\link{calculateStdValues}};
   \code{\link{getStdFormula}};
   \code{\link{getWQRawStdCharacteristics}};
   \code{\link{getWQStdValues}};
-  \code{\link{lookupDependentCharResult}},
   \code{\link{lookupDependentCharResult}};
   \code{\link{lookupIndependentCharStd}}
 }

@@ -27,7 +27,7 @@ For gc()
 }
 \section{Requirements}{
 
-  Filter requires plyr package
+  N/A
 }
 
 \section{Sources}{
@@ -59,6 +59,7 @@ For gc()
   \tab 0.1    \tab\tab 2014-05-08  \tab\tab BLC  \tab \tab Initial version \cr
   \tab 0.2    \tab\tab 2014-06-25  \tab\tab BLC  \tab \tab Extended to include variable input & disconnect option \cr
   \tab 0.3    \tab\tab 2014-07-01  \tab\tab BLC   \tab\tab Added existence checks \cr
+  \tab 0.4    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation & removed plyr references since Filter isn't used \cr
   }
 }
 \seealso{

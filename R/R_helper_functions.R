@@ -18,6 +18,12 @@
 #' @title pkgTest
 #' @description Ensure required packages are installed, if not install them
 #'
+#' @param x - String name of the desired package.
+#' 
+#' @examples
+#' # Test for the dplyr package and install it if necessary.
+#' pkgTest("dplyr")
+#'
 #' @section Sources:
 #'  \tabular{ll}{
 #'  \tab \url{http://stackoverflow.com/questions/9341635/how-can-i-check-for-installed-r-packages-before-running-install-packages} \cr
@@ -57,6 +63,9 @@ pkgTest <- function(x){
 #' @param tableName = database name of table or query (no function columns in data unless R code re-creates that function)
 #' @param maxResults = maximum number of results to return, 0 = ALL results
 #' @param numRowsAtTime = number of results records to return at a time
+#' 
+#' @return progress bar until the data is loaded
+#' 
 #' @section Sources:
 #' \tabular{ll}{
 #'  \tab \url{http://www.inside-r.org/r-doc/utils/winProgressBar} \cr
@@ -108,6 +117,9 @@ iterateDataLoad <- function(dfName, tableName, maxResults, numRowsAtTime){
 #'        Include the .sql file by using source(result of readSQL)
 #'
 #' @param path = SQL file location
+#' 
+#' @return sql - Returns the SQL string from the SQL file.
+#' 
 #' @section Sources:
 #' \tabular{ll}{
 #'  \tab \url{http://stackoverflow.com/questions/13384555/string-continuation-across-multiple-lines-no-newline-characters/13384777#'13384777} \cr
@@ -120,6 +132,7 @@ iterateDataLoad <- function(dfName, tableName, maxResults, numRowsAtTime){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1 \tab \tab 2014-05-05 \tab \tab BLC  \tab \tab Initial version \cr
+#'   \tab 0.2 \tab \tab 2014-11-10 \tab \tab BLC  \tab \tab Updated documentation \cr
 #'   }
 #' @family helper functions
 #' @export
@@ -150,7 +163,7 @@ readSQL <- function(path){
 #'  reset	   logical; TRUE = values for maximum space used are reset to the current 
 #'                            values.
 #' @section Requirements:
-#'   Filter requires plyr package
+#'   N/A
 #' @section Sources:
 #'   \tabular{ll}{
 #'   \tab M. Nel, July 24, 2012 \cr
@@ -173,14 +186,12 @@ readSQL <- function(path){
 #'   \tab 0.1    \tab\tab 2014-05-08  \tab\tab BLC  \tab \tab Initial version \cr
 #'   \tab 0.2    \tab\tab 2014-06-25  \tab\tab BLC  \tab \tab Extended to include variable input & disconnect option \cr
 #'   \tab 0.3    \tab\tab 2014-07-01  \tab\tab BLC   \tab\tab Added existence checks \cr
+#'   \tab 0.4    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation & removed plyr references since Filter isn't used \cr
 #'   }
 #' @family helper functions
 #' @export
 # ----------------------------------------------------------------------
 cleanUp <- function(varList, blnDisconnect = TRUE){
-  
-  #pkgTest("plyr")
-  #library("plyr")
   
   if(blnDisconnect){
     # close db connections
@@ -193,10 +204,6 @@ cleanUp <- function(varList, blnDisconnect = TRUE){
   # check for existence, then remove
   if(length(varList)>0){
     
-    # remove NULL items from the list
-    #varList <- varList[!sapply(varList, is.null)]
-    #rm( list = Filter( exists, varList ) )
-    #print(str(varList))
     # remove variables & functions
     suppressWarnings(rm(list=varList))
     
@@ -210,7 +217,11 @@ cleanUp <- function(varList, blnDisconnect = TRUE){
 #' @title is.not.null
 #' @description Determine if a value is or is not null
 #' 
-#' @param value x
+#' @param x - Value to check
+#' 
+#' @return TRUE - if value is not NULL
+#' @return FALSE - if value is NULL
+#' 
 #' @section Sources:
 #' \tabular{ll}{
 #'   \tab \url{http://stackoverflow.com/questions/2175809/alternative-to-is-null-in-r Etiennebr, 2/2/2010} \cr
@@ -222,6 +233,7 @@ cleanUp <- function(varList, blnDisconnect = TRUE){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1    \tab\tab 2014-05-08  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation \cr
 #'   }
 #' @family helper functions
 #' @export
@@ -237,6 +249,9 @@ is.not.null <- function(x) ! is.null(x)
 #'   unchanged values to be passed through.
 #' 
 #' @param x - any value
+#' 
+#' @return x - Returns the value unchanged.
+#' 
 #' @section Sources:
 #'   \tabular{llllllll}{
 #'   \tab 2014-05-30  \tab\tab B. Campbell  \tab\tab 0.1  \tab\tab Initial version \cr
@@ -254,14 +269,15 @@ as.is <- function(x) x
 #' @title daysBetween
 #' @description Returns number of days between two dates
 #'
-#' @param date1   - first date
-#' @param date2   - second date
+#' @param firstDate   - first date to compare
+#' @param secondDate  - second date to compare
 #'
 #' @return integer - # of days between the 2 dates, 0 if first & second dates are the same
 #'                   or -1 if values aren't dates
 #'
 #' @section Sources:
-#' 
+#'   N/A
+#'   
 #' @section Adapted:
 #'   \tabular{llllllll}{
 #'   \tab 2014-06-26  \tab\tab B. Campbell  \tab\tab 0.1  \tab\tab Initial version \cr
@@ -269,6 +285,7 @@ as.is <- function(x) x
 #' @section Revisions:
 #' \tabular{llllllll}{
 #'    \tab 0.1    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Initial version \cr
+#'    \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Updated documentation  \cr
 #'    }
 #' @family helper functions
 #' @export
@@ -296,8 +313,8 @@ daysBetween <- function(firstDate, secondDate){
 #' @title isDateBetween
 #' @description Returns TRUE or FALSE depending upon if the Date lies between start & end dates
 #'
-#' @param date1     - first date in YYYY-mm-dd format
-#' @param date2     - second date in YYYY-mm-dd format
+#' @param firstDate     - first date in YYYY-mm-dd format
+#' @param secondDate     - second date in YYYY-mm-dd format
 #' @param evalDate  - date to evaluate in YYYY-mm-dd format
 #' @param blnInclusive - boolean, include first & second dates in the span 
 #'                  (i.e. evalDate is OK if it equals either date)
@@ -306,7 +323,7 @@ daysBetween <- function(firstDate, secondDate){
 #'             date1 and date2, FALSE if evalDate outside the date range
 #'
 #' @section Sources:
-#' 
+#' N/A
 #' @section Adapted:
 #' \tabular{llllllll}{
 #'   \tab 2014-06-26  \tab\tab B. Campbell  \tab\tab 0.1  \tab\tab Initial version \cr
@@ -314,6 +331,7 @@ daysBetween <- function(firstDate, secondDate){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Update documentation \cr
 #'   }
 #' @family helper functions
 #' @export
@@ -391,8 +409,8 @@ dfExists <- function(df, dfName = ""){
 #'
 #' @param df      - dataframe object
 #' @param col     - name of the column as a string
-#' @param date1   - first date in YYYY-mm-dd format
-#' @param date2   - second date in YYYY-mm-dd format
+#' @param firstDate   - first date in YYYY-mm-dd format
+#' @param secondDate   - second date in YYYY-mm-dd format
 #'
 #' @return df - dataframe with column dates between the 2 dates or -1 if df isn't a dataframe
 #'
@@ -408,6 +426,7 @@ dfExists <- function(df, dfName = ""){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab \tab 2014-06-26 \tab \tab BLC  \tab \tab Initial version \cr
+#'   \tab 0.2   \tab \tab 2014-11-10 \tab \tab BLC  \tab \tab Update documentation \cr
 #'   }
 #' @family helper functions
 #' @export
@@ -425,7 +444,6 @@ dfDatesBetween <- function(df, col = "", firstDate, secondDate){
   }
   
   if(dfExists(df, "df")){
-    #dfsdcr <- dfdcr[with(dfdcr, DISPLAY_NAME == "pH" &  StationID == 9163500), ]
     
     dfBetweenDates <- df[with(df, df[,col] >= firstDate & df[,col] <= secondDate), ]
 
@@ -444,11 +462,11 @@ dfDatesBetween <- function(df, col = "", firstDate, secondDate){
 #' @note
 #'   Used to insert a column into the middle of a dataframe
 #' 
-#' @param df  -         dataframe to insert column into
-#' @param col -         name of column to insert
-#' @param afterCol -    column name before where the inserted column will be placed
-#' @param copyCol -     copied column name (default = '' meaning no column is copied)
-#' @param blnSciNotation -  whether column should be in scientific notiation or not (default = false)
+#' @param df             - dataframe to insert column into
+#' @param col            - name of column to insert
+#' @param afterCol       - column name before where the inserted column will be placed
+#' @param copyCol        - copied column name (default = '' meaning no column is copied)
+#' @param blnSciNotation - whether column should be in scientific notiation or not (default = FALSE)
 #'
 #' @return dataframe w/ new column
 #'
@@ -465,11 +483,12 @@ dfDatesBetween <- function(df, col = "", firstDate, secondDate){
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab \tab 2014-06-25 \tab \tab BLC  \tab \tab Initial version \cr
 #'   \tab 0.2    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Added cleanup \cr
+#'   \tab 0.3    \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family helper functions
 #' @export
 # ----------------------------------------------------------------------
-insert.column <- function(df, col, afterCol, copyCol, x, blnSciNotation = False){
+insert.column <- function(df, col, afterCol, copyCol, blnSciNotation = FALSE){
   # default
   pos = 0
   # find column position
@@ -488,16 +507,9 @@ insert.column <- function(df, col, afterCol, copyCol, x, blnSciNotation = False)
         df[,col] <- format(df[,col] , scientific = blnSciNotation)
       }
     }
-  
-  #colList = paste0("1:",pos)
-  #endList = paste0(pos+1,length(df))
-  #reorder columns
-  #df <- df[,c(1:pos,length(df),pos+1:length(df)-1)]
-  #df <- df[,c(colList,length(df),x:length(df))]
-  #df <- df[,c(colList,length(df),endList]
-  
+    
   # cleanup
-  cleanup(c('col','afterCol','copyCol','x','blnSciNotation', 'pos'), FALSE)
+  cleanup(c('col','afterCol','copyCol','blnSciNotation'), FALSE)
   
   return(df)
 }
@@ -507,9 +519,13 @@ insert.column <- function(df, col, afterCol, copyCol, x, blnSciNotation = False)
 #' @description Change data frame column types
 #'
 #' @note
-#'   Used to change from scientific notation to standard for dataframes
+#'   Used in npstoret2R to change from scientific notation to standard for dataframes
 #' 
-#' @param none
+#' @param obj   - Data frame
+#' @param type  - String ("character", "numeric", "factor", "nonsci") of desired column type to convert to 
+#' @param cols  - Column to change
+#' 
+#' @return Data frame with column(s) changed to the desired type
 #' 
 #' @section Sources:
 #'   \tabular{ll}{
@@ -527,6 +543,7 @@ insert.column <- function(df, col, afterCol, copyCol, x, blnSciNotation = False)
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-05-30 \tab \tab BLC   \tab\tab Initial version \cr
 #'   \tab 0.2   \tab\tab 2014-06-26  \tab\tab BLC  \tab \tab Added cleanup \cr
+#'   \tab 0.3   \tab\tab 2014-11-10  \tab\tab BLC  \tab \tab Updated documentation \cr
 #'   }
 #' @family helper functions
 #' @export
@@ -556,7 +573,7 @@ convert.magic <- function(obj, type, cols){
 #' @param pattern     - string to search for
 #' @param replacement - string to replace search pattern with
 #' @param x           - string to inspect
-#' @param ...         - 
+#' @param ...         - additional gsub parameters
 #'
 #' @return result - the original x string with pattern replaced by replacement
 #'
@@ -572,6 +589,7 @@ convert.magic <- function(obj, type, cols){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-09-30 \tab\tab BLC  \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11 \tab\tab BLC  \tab\tab Updated documentation \cr
 #'   }
 #' @family helper functions
 #' @export

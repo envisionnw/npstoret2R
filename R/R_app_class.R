@@ -12,15 +12,31 @@
 
 # ----------------------------------------------------------------------
 #' @title app Class
-#' @details Create a database object whose connection parameters are contained within the object
+#' @details Creates a database object whose connection parameters are contained within the object.
 #'
-#' @param apppathname - database name & directory path
-#' @param username   - database username (for authentication)
-#' @param pwd        - database password (for authentication)
+#' @param dbfilepathname - database name & directory path
+#' @param username       - database username (for authentication)
+#' @param pwd            - database password (for authentication)
+#'
+#' @examples
+#' ## Create the application object (app) and assign the NPSTORET backend filename.
+#' ## Paths should be written UNIX style with / vs. \ .
+#' ## So a windows file path like "C:\db\dbname.mdb" should be written "C:/db/dbname.mdb".
+#' 
+#' \dontrun{
+#' app <- dbfilepathname(app, "C:/my_database/NPSTORET_BE.MDB")
+#' 
+#' Connect to your database via a DSN-less connection.
+#' 
+#' app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
+#'}
 #'
 #' @section Requirements:
-#'   RODBC library
-#'   tools library
+#' R Libraries:
+#' \itemize{
+#'  \item RODBC
+#'  \item tools
+#' }
 #'
 #' @section Sources:
 #'   \tabular{llllllll}{
@@ -29,6 +45,7 @@
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-10-05  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.1   \tab\tab 2014-11-07  \tab\tab BLC   \tab\tab Documentation update & removed sqlQUeriesFilepath since SQL queries are integrated \cr
 #'   }
 #'    
 #' @family Application settings
@@ -37,8 +54,7 @@
 
 app <- list(dbfilepathname="LOCATION OF DATABASE FILE",
                    dbusername="",
-                   dbpwd = "",
-                   sqlQueriesFilepath="")
+                   dbpwd = "")
 
 class(app) <- 'app'
 
@@ -138,26 +154,4 @@ connect <- function(app)
 {
   # pass only the method & class, UseMethod silently passes other params to function
   UseMethod('connect', app)
-}
-
-# ----------------------------
-# SQL Queries Directory
-# ----------------------------
-sqlQueriesDir.app <- function(app, new.value = NULL)
-{
-  if (is.null(new.value))
-  {
-    return(app[['sqlQueriesDir']])
-  }
-  else
-  {
-    app[['sqlQueriesDir']] <- new.value
-    return(app)
-  }
-}
-
-sqlQueriesDir <- function(app, new_value = NULL)
-{
-  # pass only the method & class, UseMethod silently passes other params to function
-  UseMethod('sqlQueriesDir', app)
 }

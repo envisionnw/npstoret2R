@@ -18,15 +18,11 @@
 # ----------------------------------------------------------------------
 #' loadNPSTORETData
 #' Load NPSTORET data & populate data frame (dfName)
-#' 
-#' @param N/A
 #'
 #' @section Requirements:
-#' \tabular{l}{
-#'   RODBC library package loaded \cr
-#'   Working directory set for app \cr
-#'   SQL query for NPSTORET data must be located in the app's SQL directory \cr
-#'   SQL query filename must be SQLquery_NPSTORET_qryResultsAllOrganizations_altered.txt \cr
+#' R libraries:
+#' \itemize{
+#'   \item RODBC
 #'}
 #' @section Sources:
 #'   \tabular{llllllll}{
@@ -44,9 +40,9 @@
 #'                             to values in original column's factor list
 #'                             Drop levels to avoid retaining unused levels in df \cr
 #'   \tab 0.5   \tab\tab 2014-09-19  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
-#'   \tab 0.6   \tab\tab 2014-10-09  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
+#'   \tab 0.6   \tab\tab 2014-10-09  \tab\tab BLC  \tab\tab Documentation update \cr
 #'   \tab 0.7   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
-
+#'   \tab 0.8   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Updated documentation & removed odbcClose \cr
 #'   }
 #' @family NPSTORET functions
 #' @export
@@ -60,16 +56,13 @@ loadNPSTORETData <- function(){
   sqlString<-readLines(fileSQL)           
   sqlString<-paste(sqlString,collapse="","") 
   
-  
   # -------------------------------------------
   #  NPSTORET - altered qryResultsAllOrganizations 
   #             w/o PersonName: FillResponsiblePersonList([tblActivities].[LocFdAct_IS_NUMBER],[tblActivities].[LocFdAct_ORG_ID],False) field
   # -------------------------------------------
 
   # ----------Connect----------
-  # connect to the current NPSTORET front end connection
-  #app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
-  #dbConn <- app[["connect"]]
+  # connect to the current NPSTORET front end connection via npstoret pkgEnv connection
   assign("dbConn", npstoret, envir=pkgEnv)
   
   #REMEMBER! sqlFetch from a table, sqlQuery a SQL statement!!
@@ -89,18 +82,37 @@ loadNPSTORETData <- function(){
 
   # cleanup
   cleanUp(c('sqlString','filePath','fileSQL'), FALSE)
-
-  # close connection
-  odbcClose(dbConn)
   
   return(df)
 }
 
 # ----------------------------------------------------------------------
 #' @title getFilteredNPSTORETData
-#' @description Filter NPSTORET data by standard columns & populate data frame (dfName)
-#'
+#' @description Filter NPSTORET data by standard columns & populate data frame
+#' 
 #' @param df - data frame holding park data
+#' 
+#' @return data frame - subset of park data with the following data
+#' \itemize{
+#'  \item Park
+#'  \item ParkName
+#'  \item ProjectID
+#'  \item ProjectName
+#'  \item StationID
+#'  \item Station Name
+#'  \item START_DATE
+#'  \item QAQC_SAMPLE
+#'  \item LocCharNameCode
+#'  \item DISPLAY_NAME
+#'  \item SMPL_FRAC_TYPE_NM
+#'  \item MEDIUM
+#'  \item DETECTION_CONDITION
+#'  \item RESULT_TEXT
+#'  \item UOM
+#'  \item VALUE_STATUS
+#'  \item VALUE_TYPE
+#'  \item DETECTION_LIMIT
+#' }
 #'
 #' @section Requirements:
 #'   Assumes the following columns exist in park dataframe
@@ -116,6 +128,7 @@ loadNPSTORETData <- function(){
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-05-05  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #' @family NPSTORET functions
 #' @export
@@ -156,19 +169,21 @@ getParksList <- function(df){
 #' @description Pull park data from dataframe
 #'
 #' @param df - data frame holding park data
-#' @param col - column to compare from dataframe
 #' @param parkAbbrev - park name abrev (ARCH, CANY, etc.)
 #'
 #' @section Sources:
-#'   2014-05-07 B. Campbell 0.1 Initial version
+#' \tabular{llllllll}{
+#'   \tab 2014-05-07 \tab\tab B. Campbell \tab\tab 0.1 \tab\tab Initial version \cr
+#'   }
 #' @section Revisions:
-#'   0.1   2014-05-07  BLC   Initial version
+#' \tabular{llllllll}{
+#'   \tab 0.1   \tab\tab 2014-05-07  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
+#'   }
+#' @family NPSTORET functions
 #' @export
 # ----------------------------------------------------------------------
 getParkData <- function(df, parkAbbrev){
-  #subset(df, df[,col] == parkAbbrev)  
-  # Error: cannot allocate vector of size 1.7 Mb
-  #subset(df,Park == "ARCH") --> ok
   
   subset(df,Park == parkAbbrev)
 
@@ -178,9 +193,7 @@ getParkData <- function(df, parkAbbrev){
 #' @title loadNPSTORETWQData
 #' @description Load NPSTORET data & populate data frame
 #'
-#' @param app - global application database settings (dbfilepathname, dbusername, dbpwd in particular).
-#'            These are passed to ensure the database file information is available for making the connection.
-#' @param dataType - String (enclosed in quotes) that identifies what data should be retrieved.
+#' @param datatype - String (enclosed in quotes) that identifies what data should be retrieved.
 #'                 This identifies which SQL query should be run to retrieve data from NPSTORET.
 #'                 Possible values, what they return, & the related SQL query include:
 #'                 \itemize{
@@ -206,15 +219,18 @@ getParkData <- function(df, parkAbbrev){
 #'                 Good time to take a break from the computer screen if you have a very large data set!
 #'                 }
 #'                 
-#' @param filter - the WQ standard to filter by (see usage below)
+#' @param filter - the WQ standard to filter by (see examples below)
 #'                 
 #' @return df - dataframe with the desired NPSTORET results, characteristics, criteria (as selected by "dataType")
 #' 
 #' @section Requirements:
-#'   RODBC library package loaded
+#' r Libraries:
+#' \itemize{
+#'  \item \code{\link[RODBC]}
+#' }
 #'   
 #' @examples
-#'   Typically calls are made to retrieve all results, then WQ characteristics.
+#' ## Typically calls are made to retrieve all results, then WQ characteristics.
 #'   
 #'     \dontrun{
 #'        # get results
@@ -224,7 +240,7 @@ getParkData <- function(df, parkAbbrev){
 #'        dfChars <- loadNPSTORETData("WQProjStnStdCritAlt")
 #'     }  
 #'     
-#'   Limited filtering is available for water quality standards.
+#' ## Limited filtering is available for water quality standards.
 #'   \dontrun{
 #'        # get a filtered list of standards for Colorado Cold Water
 #'        dfCOCWStds <- loadNPSTORETData("WQstdsFiltered","CO_ALCW1")
@@ -266,7 +282,8 @@ getParkData <- function(df, parkAbbrev){
 #'                          which can cause later manipulation problems \cr
 #'   \tab 0.7   \tab\tab 2014-09-19  \tab\tab BLC  \tab\tab Added odbcClose for connection cleanup \cr
 #'   \tab 0.8   \tab\tab 2014-10-05  \tab\tab BLC  \tab\tab Updated directory location for package \cr
-#'   \tab 0.8   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
+#'   \tab 0.9   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
+#'   \tab 0.10   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Documentation updated & removed odbcClose to leave connection available \cr
 #'   }
 #' @family NPSTORET functions
 #' @export
@@ -331,7 +348,6 @@ loadNPSTORETWQData <- function(datatype="Results", filter=""){
     
   # ----------SQL---------------
   # read in SQL query
-  #filePath = paste(getwd(),"/inst/SQL/",fileName,sep="")
   filePath = paste(getwd(),"/doc/",fileName,sep="")
   fileSQL<-file(filePath,"rt")            
   sqlString<-readLines(fileSQL)
@@ -350,10 +366,6 @@ loadNPSTORETWQData <- function(datatype="Results", filter=""){
   
   # ----------Connect----------
   # connect to the current NPSTORET front end connection
-#  dbfilepath <- get(app[["dbfilepathname"]],envir=.GlobalEnv)
-  #app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
- # app$connect <- odbcConnectAccess2007(dbfilepath)
-#  dbConn <- app[["connect"]]
   assign("dbConn", pkgEnv$npstoret$connect, envir=.GlobalEnv)
 
 
@@ -367,7 +379,7 @@ loadNPSTORETWQData <- function(datatype="Results", filter=""){
   cleanUp(c('sqlString','datatype','filter', 'filePath','fileSQL'), FALSE)
   
   # close connection
-#  odbcClose(dbConn)
+  # odbcClose(dbConn)
   
   return(df)
 }

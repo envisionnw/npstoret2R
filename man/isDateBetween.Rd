@@ -6,14 +6,14 @@
 isDateBetween(firstDate, secondDate, evalDate, blnInclusive = TRUE)
 }
 \arguments{
+\item{firstDate}{- first date in YYYY-mm-dd format}
+
+\item{secondDate}{- second date in YYYY-mm-dd format}
+
 \item{evalDate}{- date to evaluate in YYYY-mm-dd format}
 
 \item{blnInclusive}{- boolean, include first & second dates in the span
                  (i.e. evalDate is OK if it equals either date)}
-
-\item{date1}{- first date in YYYY-mm-dd format}
-
-\item{date2}{- second date in YYYY-mm-dd format}
 }
 \value{
 boolean - TRUE if evalDate is 'between' (or equal, if inclusive=TRUE)
@@ -24,6 +24,7 @@ Returns TRUE or FALSE depending upon if the Date lies between start & end dates
 }
 \section{Sources}{
 
+N/A
 }
 
 \section{Adapted}{
@@ -37,6 +38,7 @@ Returns TRUE or FALSE depending upon if the Date lies between start & end dates
 
   \tabular{llllllll}{
   \tab 0.1    \tab\tab 2014-06-26  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2    \tab\tab 2014-11-10  \tab\tab BLC   \tab\tab Update documentation \cr
   }
 }
 \seealso{

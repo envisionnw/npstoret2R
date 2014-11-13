@@ -14,6 +14,9 @@ iterateDataLoad(dfName, tableName, maxResults, numRowsAtTime)
 
 \item{numRowsAtTime}{= number of results records to return at a time}
 }
+\value{
+progress bar until the data is loaded
+}
 \description{
 Iterate through an ODBC load from tables or query and populates a data frame (dfName)
                  displays a progress bar while data frame is loaded

@@ -1,0 +1,58 @@
+---
+title: "Running npstoret2R"
+author: "Bonnie Campbell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Running npstoret2R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+
+## Overview
+
+The whole purpose of npstoret2R is to enable you to import NPSTORET results and standards, then begin water quality analysis.
+
+This vignette is simply to give you a sense of how to best prepare for running npstoret2R.
+
+
+## Preparing a Run.R script
+
+The following example shows how to prepare a run.R script for pulling in 
+your NPSTORET data for analysis.
+
+Remember that this script will enable you to pull in data from the NPSTORET
+database of your choice, but if you want to save the results of your
+analysis, you'll want to save your Environment and its *.RData file for later use.
+
+```
+\dontrun{
+# ------------------------------------
+# Running npstoret2R
+# ------------------------------------
+#
+# ----------------------
+# Initialize Environment & Connect to Db
+# ----------------------
+# environment for variables to avoid collisions with .GlobalEnv
+ pkgEnv <- new.env(parent = emptyenv())
+ initializeEnvironment()
+
+# ----------------------
+# Connect to Db
+# ----------------------
+# note app must be in both assignment as argument of dbfilepathname otherwise it doesn't work
+
+ app <- dbfilepathname(app, "C:/NPSTORET_DATA/NPSTORET_BE.MDB") 
+
+ app$connect <- odbcConnectAccess2007(app[["dbfilepathname"]])
+
+ assign("npstoret",app,envir=pkgEnv) 
+
+# ----------------------
+# Import NPSTORET results & standards
+# ----------------------
+ initializeData()
+}
+```

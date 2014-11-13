@@ -1,7 +1,7 @@
-#' Import NPSTORET data into R with npstoret2R!
+#' @title Import NPSTORET data into R with npstoret2R!
 #'
 #'
-#'
+#' @description
 #' \bold{ CONNECT, IMPORT, & ANALYZE }
 #' 
 #' It's best if you're working from a local copy of your

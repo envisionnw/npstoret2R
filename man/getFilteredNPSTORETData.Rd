@@ -8,8 +8,31 @@ getFilteredNPSTORETData(df)
 \arguments{
 \item{df}{- data frame holding park data}
 }
+\value{
+data frame - subset of park data with the following data
+\itemize{
+ \item Park
+ \item ParkName
+ \item ProjectID
+ \item ProjectName
+ \item StationID
+ \item Station Name
+ \item START_DATE
+ \item QAQC_SAMPLE
+ \item LocCharNameCode
+ \item DISPLAY_NAME
+ \item SMPL_FRAC_TYPE_NM
+ \item MEDIUM
+ \item DETECTION_CONDITION
+ \item RESULT_TEXT
+ \item UOM
+ \item VALUE_STATUS
+ \item VALUE_TYPE
+ \item DETECTION_LIMIT
+}
+}
 \description{
-Filter NPSTORET data by standard columns & populate data frame (dfName)
+Filter NPSTORET data by standard columns & populate data frame
 }
 \section{Requirements}{
 
@@ -31,10 +54,12 @@ Filter NPSTORET data by standard columns & populate data frame (dfName)
 
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-05-05  \tab\tab BLC   \tab\tab Initial version \cr
+  \tab 0.2   \tab\tab 2014-11-11  \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \seealso{
-Other NPSTORET functions: \code{\link{getParksList}};
+Other NPSTORET functions: \code{\link{getParkData}};
+  \code{\link{getParksList}};
   \code{\link{loadNPSTORETData}};
   \code{\link{loadNPSTORETWQData}}
 }
