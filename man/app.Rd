@@ -31,7 +31,7 @@ Creates a database object whose connection parameters are contained within the o
 
 R Libraries:
 \itemize{
- \item \link[RODBC]{rodbc}
+ \item \link[RODBC]{RODBC}
  \item \link[tools]{tools}
 }
 }

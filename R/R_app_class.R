@@ -34,7 +34,7 @@
 #' @section Requirements:
 #' R Libraries:
 #' \itemize{
-#'  \item \link[RODBC]{rodbc}
+#'  \item \link[RODBC]{RODBC}
 #'  \item \link[tools]{tools}
 #' }
 #'
@@ -50,7 +50,7 @@
 #'   }
 #'    
 #' @family Application settings
-#' @exportClass
+#' @exportClass app
 # ----------------------------------------------------------------------
 
 app <- list(dbfilepathname="LOCATION OF DATABASE FILE",
