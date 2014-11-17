@@ -58,4 +58,4 @@ SELECT
 	LocLab_ORG_ID,
 	LabCertified4Char
 	
-FROM tblCharacteristics
+FROM tblCharacteristics;
