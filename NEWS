@@ -1,3 +1,13 @@
+npstoret2R 0.0.0.9003
+===================
+
+DEVELOPMENT INCREMENTAL RELEASE 3
+
+* Continued code cleanup
+
+* Updated initializeEnvironment to drop unnecessary script calls
+
+
 npstoret2R 0.0.0.9002
 ===================
 
