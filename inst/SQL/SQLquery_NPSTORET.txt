@@ -31,7 +31,6 @@ SELECT
 	tblCharacteristics.WT_BASIS_TYPE_NM, 
 	tblCharacteristics.TEMP_BASIS_LVL_NM, 
 	tblCharacteristics.PARTICLE_SIZE_BASIS, 
-	tblDef_TSRBIOPT.NAME AS BioPt, 
 	qryTaxon.DISPLAY_NAME AS SubTax, 
 	tblCharacteristics.UDSubSpeciesNumber, 
 	tblResults.LocRSULT_IS_NUMBER, 
@@ -73,15 +72,13 @@ FROM
                   ON tblOrganizations.Org_ID = tblVisits.LocStVst_ORG_ID) 
              ON (tblProjects.LocProj_ORG_ID = tblVisits.LocProj_ORG_ID) 
              AND (tblProjects.LocProj_IS_NUMBER = tblVisits.LocProj_IS_NUMBER)) 
-         INNER JOIN ((((((tblCharacteristics 
+         INNER JOIN (((((tblCharacteristics 
            LEFT JOIN tblAnalyticalProcedures 
              ON (tblCharacteristics.LocANLPR_IS_NUMBER = tblAnalyticalProcedures.LocANLPR_IS_NUMBER) 
              AND (tblCharacteristics.LocANLPR_ORG_ID = tblAnalyticalProcedures.LocANLPR_ORG_ID)) 
            LEFT JOIN tblFieldProcedures 
              ON (tblCharacteristics.LocFLDPR_IS_NUMBER = tblFieldProcedures.LocFLDPR_IS_NUMBER) 
              AND (tblCharacteristics.LocFLDPR_ORG_ID = tblFieldProcedures.LocFLDPR_Org_ID)) 
-           LEFT JOIN tblDef_TSRBIOPT 
-             ON tblCharacteristics.TSRBioPt_IS_NUMBER = tblDef_TSRBIOPT.TSRBIOPT_IS_NUMBER) 
            LEFT JOIN qryTaxon 
              ON tblCharacteristics.TSRSubTax_IS_NUMBER = qryTaxon.TSRCHAR_IS_NUMBER) 
            LEFT JOIN tblDef_TSRUOM ON tblCharacteristics.TSRUOM_IS_NUMBER = tblDef_TSRUOM.TSRUOM_IS_NUMBER) 
