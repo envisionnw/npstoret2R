@@ -5,7 +5,7 @@ DEVELOPMENT INCREMENTAL RELEASE 2
 
 * Continued code cleanup & documentation fixes
 
-* 
+* Updated SQLquery_NPSTORET for NPSTORET 1.86 removal of TSRBIO_PT table
 
 
 npstoret2R 0.0.0.9001
