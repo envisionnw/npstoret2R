@@ -1,3 +1,13 @@
+npstoret2R 0.0.0.9004
+===================
+
+DEVELOPMENT INCREMENTAL RELEASE 3
+
+* Continued code cleanup
+
+* Revised app connection class to S4 and renamed to db class
+
+
 npstoret2R 0.0.0.9003
 ===================
 
