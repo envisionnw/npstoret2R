@@ -38,6 +38,8 @@ R Libraries:
   \tab\tab http://stackoverflow.com/questions/23495627/roxygen2-s4-generic-functions-are-not-exported-unless-a-method-is-also-defined \cr
   \tab March 11, 2014 \tab Hadley Wickham \cr
   \tab\tab https://groups.google.com/forum/#!topic/rdevtools/sq3DG0oj058 \cr
+  \tab Dec. 12, 2012 \tab Martin Morgan \cr
+  \tab\tab http://stackoverflow.com/questions/13841400/use-s3-virtual-class-as-slot-of-an-s4-class-got-error-got-class-s4-should-b \cr
   }
 }
 
@@ -60,8 +62,8 @@ R Libraries:
 }
 }
 \seealso{
-Other Application settings: \code{\link{db}},
-  \code{\link{db-class}}; \code{\link{setDbFile}};
-  \code{\link{setDbPwd}}; \code{\link{setDbUser}}
+Other Application settings: \code{\link{db-class}};
+  \code{\link{setDbFile}}; \code{\link{setDbPwd}};
+  \code{\link{setDbUser}}
 }
 
