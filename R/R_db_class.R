@@ -344,6 +344,7 @@ setMethod(f="setDbPwd",
 #' @section Revisions:
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-11-18  \tab\tab BLC   \tab\tab Initial version \cr
+#'   \tab 0.2   \tab\tab 2014-12-01  \tab\tab BLC   \tab\tab Fixed check file bug (use == not =) \cr
 #'   }
 #'    
 #' @family Application settings
@@ -358,10 +359,10 @@ setGeneric(name="connect",
 setMethod(f="connect",
           signature="db",
           definition = function(dbObject, dbfile, user, pwd){
-            library("tools")
+            #library("tools")
             
             # check file is access app (do outside of connect.app): 
-            if((file_ext(dbfile) = 'mapp') | (file_ext(dbfile) = 'accb')){
+            if((file_ext(dbfile) == 'mapp') | (file_ext(dbfile) == 'accb')){
 
               # set values
               setDbFile(dbfile)
