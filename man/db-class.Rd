@@ -54,6 +54,7 @@ R Libraries:
   \tab 0.3   \tab\tab 2014-11-13  \tab\tab BLC   \tab\tab Documentation update \cr
   \tab 0.4   \tab\tab 2014-11-17  \tab\tab BLC   \tab\tab Converted to S4 class & renamed to db vs. app \cr
   \tab 0.5   \tab\tab 2014-11-23  \tab\tab BLC   \tab\tab Changed to Ref class vs S4 to resolve connect slot error \cr
+  \tab 0.6   \tab\tab 2014-12-29  \tab\tab BLC   \tab\tab Documentation update \cr
   }
 }
 \examples{
@@ -62,11 +63,10 @@ R Libraries:
 ## So a windows file path like "C:\\db\\dbname.mdb" should be written "C:/db/dbname.mdb".
 
 \dontrun{
-npstoret <- db("C:/my_database/NPSTORET_BE.MDB","","")
 
 Connect to your database via a DSN-less connection.
 
-npstoret <- connect(npstoret, dbfilepath, user, pwd)
+connect(mynpstoret,dbfile="C:/NPSTORET/NPSTORET_BE.MDB", user="myusername", pwd="mypwd")
 }
 }
 \seealso{

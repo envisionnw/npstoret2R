@@ -12,6 +12,8 @@
 # Revisions:  0.1  2014-06-13  B. Campbell  initial version
 #             0.2  2014-09-08  B. Campbell  use droplevels to remove unused levels from dfs
 #             0.3  2014-11-11  B. Campbell  update documentation
+#             0.4  2014-12-31  B. Campbell  fix dfRAWstds bug
+#             0.5  2015-01-06  B. Campbell  fix IsDependent not found error
 # ==========================================================
 #
 # Process:
@@ -81,6 +83,7 @@
 #'   \tab 0.3   \tab\tab 2014-09-08 \tab\tab   BLC  \tab\tab Drop unused levels \cr
 #'   \tab 0.4   \tab\tab 2014-10-05 \tab\tab   BLC  \tab\tab Add check to ensure dfRAWStds is a data.frame \cr
 #'   \tab 0.5   \tab\tab 2014-11-11 \tab\tab   BLC  \tab\tab Documentation update \cr
+#'   \tab 0.6   \tab\tab 2014-12-31 \tab\tab   BLC  \tab\tab Fix dfRAWstds typo \cr
 #'   }
 #' @family WQ Standards functions
 #' @export
@@ -89,7 +92,7 @@ getWQRawStdCharacteristics <- function(){
   dfRAWstds <- loadNPSTORETWQData("WQProjStnStdCritAlt")
   
   # dataframe check w/ lazy (&&) evaluation (2nd condition evaluates only if 1st is true)
-  if (exists("dfRAWStds") && is.data.frame(get("dfRAWStds"))){  
+  if (exists("dfRAWstds") && is.data.frame(get("dfRAWstds"))){    
     # convert StationID to non-scientific notation
     # add nonsci column
     dfRAWstds$Station_ID <- format(dfRAWstds$StationID, scientific = FALSE)
@@ -127,6 +130,7 @@ getWQRawStdCharacteristics <- function(){
 #'                             factorization of df strings & subsequent
 #'                             limitation of df values & fix df names & station \cr
 #'   \tab 0.3   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update, add check for dfRAWstds & remove sqldf depedency \cr
+#'   \tab 0.4   \tab\tab 2015-01-06    \tab\tab BLC   \tab\tab Fix unused argument (IsDependent=0) error \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
@@ -140,13 +144,13 @@ getIndepWQStdChars <- function(){
   
   # subset only chars
   #       a) Independent Criteria - IsDependent = 0, No DependentCharacteristic
-  dfIndepStds <- dfRAWstds[, IsDependent = 0]
+  dfIndepStds <- dfRAWstds[dfRAWstds$IsDependent == 0,]
 
   # remove unused levels
   dfIndepStds <- droplevels(dfIndepStds)
   
   # cleanup
-  cleanUp(c('dfRawstds'), FALSE)
+  cleanUp(c('dfRAWstds'), FALSE)
   
   return(dfIndepStds)
 }
@@ -176,6 +180,7 @@ getIndepWQStdChars <- function(){
 #'                             factorization of df strings & subsequent
 #'                             limitation of df values, fix spaces & reordering df \cr
 #'   \tab 0.6   \tab\tab 2014-11-11    \tab\tab BLC   \tab\tab Documentation update, add check for dfRAWStds & remove sqldf depedency \cr
+#'   \tab 0.7   \tab\tab 2015-01-06    \tab\tab BLC   \tab\tab Fix unused argument (IsDependent=0) error \cr
 #'  }
 #' @family WQ Standards functions
 #' @export
@@ -189,13 +194,13 @@ getRAWDepWQStdChars <- function(){
   
   # subset only chars
   #       b) Dependent Criteria - IsDependent = 1, DependentCharacteristic present
-  dfRAWDepWQStdChars <- dfRAWstds[, IsDependent = 1]
+  dfRAWDepWQStdChars <- dfRAWstds[dfRAWstds$IsDependent == 1,]
     
   # remove unused levels
   dfRAWDepWQStdChars <- droplevels(dfRAWDepWQStdChars)
   
   # cleanup
-  cleanUp(c('dfRawstds'), FALSE)
+  cleanUp(c('dfRAWstds'), FALSE)
   
   return(dfRAWDepWQStdChars)
 }

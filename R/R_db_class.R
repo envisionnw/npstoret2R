@@ -10,6 +10,7 @@
 # Revisions:  0.1  2014-10-05  B. Campbell  initial version
 #             0.2  2014-11-17  B. Campbell  updated to S4 class
 #             0.3  2014-11-24  B. Campbell  fixed connect slot
+#             0.4  2014-11-29  B. Campbell  updated connect documentation
 # ==========================================================
 
 # ----------------------------
@@ -63,11 +64,10 @@ setOldClass("RODBC")
 #' ## So a windows file path like "C:\db\dbname.mdb" should be written "C:/db/dbname.mdb".
 #' 
 #' \dontrun{
-#' npstoret <- db("C:/my_database/NPSTORET_BE.MDB","","")
-#' 
+#'  
 #' Connect to your database via a DSN-less connection.
 #' 
-#' npstoret <- connect(npstoret, dbfilepath, user, pwd)
+#'connect(mynpstoret,dbfile="C:/NPSTORET/NPSTORET_BE.MDB", user="myusername", pwd="mypwd")
 #'}
 #'
 #' @section Requirements:
@@ -95,6 +95,7 @@ setOldClass("RODBC")
 #'   \tab 0.3   \tab\tab 2014-11-13  \tab\tab BLC   \tab\tab Documentation update \cr
 #'   \tab 0.4   \tab\tab 2014-11-17  \tab\tab BLC   \tab\tab Converted to S4 class & renamed to db vs. app \cr
 #'   \tab 0.5   \tab\tab 2014-11-23  \tab\tab BLC   \tab\tab Changed to Ref class vs S4 to resolve connect slot error \cr
+#'   \tab 0.6   \tab\tab 2014-12-29  \tab\tab BLC   \tab\tab Documentation update \cr
 #'   }
 #'    
 #' @family Application settings
@@ -316,7 +317,7 @@ setMethod(f="setDbPwd",
 #' @examples
 #' 
 #' \dontrun{
-#'  connect(mydb, "C:/database/npstoret.accb", "myusername", "mypassword") 
+#'  connect(mydb, dbfilename="C:/database/npstoret.accb", user="myusername", pwd="mypassword") 
 #'}
 #'
 #' @section Requirements:
@@ -345,6 +346,7 @@ setMethod(f="setDbPwd",
 #'   \tabular{llllllll}{
 #'   \tab 0.1   \tab\tab 2014-11-18  \tab\tab BLC   \tab\tab Initial version \cr
 #'   \tab 0.2   \tab\tab 2014-12-01  \tab\tab BLC   \tab\tab Fixed check file bug (use == not =) \cr
+#'   \tab 0.3   \tab\tab 2014-12-29  \tab\tab BLC   \tab\tab Updated documentation \cr
 #'   }
 #'    
 #' @family Application settings
@@ -359,7 +361,6 @@ setGeneric(name="connect",
 setMethod(f="connect",
           signature="db",
           definition = function(dbObject, dbfile, user, pwd){
-            #library("tools")
             
             # check file is access app (do outside of connect.app): 
             if((file_ext(dbfile) == 'mapp') | (file_ext(dbfile) == 'accb')){

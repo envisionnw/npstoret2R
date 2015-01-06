@@ -44,6 +44,7 @@
 #'   \tab 0.7   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
 #'   \tab 0.8   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Updated documentation & removed odbcClose \cr
 #'   \tab 0.9   \tab\tab 2014-11-12  \tab\tab BLC   \tab\tab Revise SQL paths to sqlPath \cr
+#'   \tab 0.10   \tab\tab 2014-12-30  \tab\tab BLC   \tab\tab Update dbConn to use npstoret@@connect object connection \cr
 #'   }
 #' @family NPSTORET functions
 #' @export
@@ -64,7 +65,8 @@ loadNPSTORETData <- function(){
 
   # ----------Connect----------
   # connect to the current NPSTORET front end connection via npstoret pkgEnv connection
-  assign("dbConn", npstoret, envir=pkgEnv)
+  #  assign("dbConn", npstoret, envir=pkgEnv)
+  assign("dbConn", npstoret@connect, envir=.GlobalEnv)
   
   #REMEMBER! sqlFetch from a table, sqlQuery a SQL statement!!
   # NOTE: SQLString can have brackets ex: tblLocations.[Station Name] 
@@ -286,6 +288,7 @@ getParkData <- function(df, parkAbbrev){
 #'   \tab 0.9   \tab\tab 2014-10-13  \tab\tab BLC  \tab\tab Revised connection to app[["connection"]] vs internal connection \cr
 #'   \tab 0.10   \tab\tab 2014-11-11  \tab\tab BLC  \tab\tab Documentation updated & removed odbcClose to leave connection available \cr
 #'   \tab 0.11   \tab\tab 2014-11-12  \tab\tab BLC   \tab\tab Revise SQL paths to sqlPath \cr
+#'   \tab 0.12   \tab\tab 2014-12-30  \tab\tab BLC   \tab\tab Update dbConn to use npstoret@@connect object connection \cr
 #'   }
 #' @family NPSTORET functions
 #' @export
@@ -368,8 +371,8 @@ loadNPSTORETWQData <- function(datatype="Results", filter=""){
   
   # ----------Connect----------
   # connect to the current NPSTORET front end connection
-  assign("dbConn", pkgEnv$npstoret$connect, envir=.GlobalEnv)
-
+  #assign("dbConn", pkgEnv$npstoret$connect, envir=.GlobalEnv)
+  assign("dbConn", npstoret@connect, envir=.GlobalEnv)
 
   #REMEMBER! sqlFetch from a table, sqlQuery a SQL statement!!
   # NOTE: SQLString can have brackets ex: tblLocations.[Station Name] 

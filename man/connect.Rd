@@ -55,11 +55,12 @@ R Libraries:
   \tabular{llllllll}{
   \tab 0.1   \tab\tab 2014-11-18  \tab\tab BLC   \tab\tab Initial version \cr
   \tab 0.2   \tab\tab 2014-12-01  \tab\tab BLC   \tab\tab Fixed check file bug (use == not =) \cr
+  \tab 0.3   \tab\tab 2014-12-29  \tab\tab BLC   \tab\tab Updated documentation \cr
   }
 }
 \examples{
 \dontrun{
- connect(mydb, "C:/database/npstoret.accb", "myusername", "mypassword")
+ connect(mydb, dbfilename="C:/database/npstoret.accb", user="myusername", pwd="mypassword")
 }
 }
 \seealso{
