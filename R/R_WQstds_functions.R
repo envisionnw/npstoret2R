@@ -14,6 +14,7 @@
 #             0.3  2014-11-11  B. Campbell  update documentation
 #             0.4  2014-12-31  B. Campbell  fix dfRAWstds bug
 #             0.5  2015-01-06  B. Campbell  fix IsDependent not found error
+#             0.6  2015-01-07  B. Campbell  add park comparator for result lookups
 # ==========================================================
 #
 # Process:
@@ -483,6 +484,7 @@ getHardnessLnVal <- function(hardness){
 #' @description Lookup dependent characteristic result value (pH, H20 temp, hardness)
 #'
 #' @param depChar       - NPSTORET dependent characteristic value (CharDependent)
+#' @param park          - NPSTORET park
 #' @param stationID     - NPSTORET StationID
 #' @param startDate     - NPSTORET visit StartDate
 #' @param startTimeZone - NPSTORET visit StartTimeZone
@@ -513,11 +515,12 @@ getHardnessLnVal <- function(hardness){
 #'   \tab\tab\tab\tab\tab\tab\tab Replaced length with nrow to get proper # of rows (vs. df width/cols) \cr
 #'   \tab\tab\tab\tab\tab\tab\tab Replaced == with \%in\% for comparisons \cr
 #'   \tab 0.3   \tab\tab 2014-11-1    \tab\tab BLC   \tab\tab Documentation update \cr
+#'   \tab 0.4   \tab\tab 2015-01-07    \tab\tab BLC   \tab\tab Add park comparator \cr
 #'    }
 #' @family WQ Standards functions
 #' @export
 # ----------------------------------------------------------------------
-lookupDependentCharResult <- function(depChar, stationID, startDate, startTimeZone, uom, medium, field_lab){
+lookupDependentCharResult <- function(depChar, park, stationID, startDate, startTimeZone, uom, medium, field_lab){
 
   # default value
   depCharValue = ""
@@ -599,6 +602,7 @@ dfMatch <- dfDepCharLookup[with(dfDepCharLookup,
                                 which(
                                   as.Date(as.character(START_DATE,"%Y-%m-%d"))==as.Date(as.character(startDate)) 
                                   & as.character(DISPLAY_NAME)==as.character(charName)
+                                  & as.character(Park)==as.character(park)
                                   & as.character(StationID)==as.character(stationID)
                                   & as.character(MEDIUM)==as.character(medium)
                                   & as.character(FIELD_LAB)==as.character(field_lab)
