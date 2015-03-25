@@ -557,7 +557,7 @@ lookupDependentCharResult <- function(depChar, park, stationID, startDate, start
          }
   )
   
-  # match ALL values
+# match ALL values
 #  dfMatch <- dfDepCharLookup[with(dfDepCharLookup,which(DISPLAY_NAME==charName & 
 #                           StationID == stationID & 
 #                            as.Date(as.character(START_DATE,"%Y-%m-%d"))==as.Date(startDate) & 
@@ -594,7 +594,6 @@ lookupDependentCharResult <- function(depChar, park, stationID, startDate, start
 #                                          & str_trim(str_replace_all(str_replace_all(str_replace_all(str_replace_all(UOM, "<NA>", " NA "), "#/", " number per "), "%", " percent "), "/", " per "))
 #                                          ==str_trim(str_replace_all(str_replace_all(str_replace_all(str_replace_all(uom, "<NA>", " NA "), "#/", " number per "), "%", " percent "), "/", " per "))
 #                            )),]
-
 # "== does elementwise checking for equality"
 # "find which of the elements of X that are in the vector Y" <<<<< use %in% instead!!
 
