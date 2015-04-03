@@ -218,7 +218,7 @@ initializeData <- function(){
   #  Prep Results (add cols)
   # ------------------------
   # add columns to results sets
-  allres <- AddResultColumns(dfResults)+++++++++++++++++++++++++++
+  allres <- AddResultColumns(dfResults)
   
   # convert SMPL_FRAC_TYPE_NM & MEDIUM to lower case
   allres$SMPL_FRAC_TYPE_NM <- tolower(allres$SMPL_FRAC_TYPE_NM)
